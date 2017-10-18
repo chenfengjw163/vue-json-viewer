@@ -1,15 +1,15 @@
 <template>
     <div class="json-viewer">
         <div class="tooltip">
-            <j-icon v-if="showBigger" type="ion-qr-scanner" @click="bigger"></j-icon>
-            <j-icon v-if="copied" class="copied" type="ion-checkmark"></j-icon>
-            <j-icon v-if="showCopy && !copied" class="copy" type="ion-md-clipboard" @click="clip"></j-icon>
+            <j-icon v-if="showBigger" type="qr-scanner" @click="bigger"></j-icon>
+            <j-icon v-if="copied" class="copied" type="checkmark"></j-icon>
+            <j-icon v-if="showCopy && !copied" class="copy" type="clipboard" @click="clip"></j-icon>
         </div>
         <div class="code-box" :class="{'more': moreCode}">
             <json-box :value="value" :key-name="keyName"></json-box>
         </div>
         <div class="more-code" @click="toggleMoreCode">
-            <j-icon :type="moreCode ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></j-icon>
+            <j-icon :type="moreCode ? 'ios-arrow-up' : 'ios-arrow-down'"></j-icon>
         </div>
     </div>
 </template>
@@ -42,7 +42,7 @@ export default {
     },
     provide() {
         return {
-            iconPrefix: this.iconPrefix
+            iconPrefix: this.iconPrefix || 'ion'
         }
     },
     data() {
@@ -113,7 +113,7 @@ export default {
         text-align: center;
         cursor: pointer;
 
-        .icon {
+        .j-icon {
             position: relative;
             z-index: 2;
         }
@@ -134,7 +134,6 @@ export default {
         position: absolute;
         right: 12px;
         top: 5px;
-        font-size: 18px;
         color: #b2b2b2;
         cursor: pointer;
 
@@ -142,9 +141,14 @@ export default {
             color: #19be6b;
         }
 
-        .icon {
+        .j-icon {
             margin-left: 5px;
+            font-size: 18px;
         }
+    }
+    
+    .j-icon {
+        font-size: 12px;
     }
 }
 </style>

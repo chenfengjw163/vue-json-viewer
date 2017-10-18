@@ -1,7 +1,7 @@
 <template>
     <div class="node">
         <span class="key" v-if="keyName">
-            <j-icon v-if="isObject" :type="value ? 'ion-arrow-down-b' : 'ion-arrow-up-b'" @click.stop="toggleNode"></j-icon>
+            <j-icon v-if="isObject" :type="value ? 'arrow-down-b' : 'arrow-up-b'" @click.stop="toggleNode"></j-icon>
             {{keyName}}:
         </span>
         <commponent :is="`Json${valueType}`" :json-value="value" v-model="toggle" :key-name="keyName"></commponent>
@@ -71,15 +71,14 @@ export default {
     &:after {
         content: ','
     }
-    &:last-child {
+    &:last-of-type {
         &:after {
             content: ''
         }
     }
-    .icon {
+    .j-icon {
         position: absolute;
         left: -12px;
-        font-size: 12px;
         top: 3px;
         color: #80848f;
         cursor: pointer;

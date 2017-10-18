@@ -1,7 +1,7 @@
 <template>
-    <i :class="{
-        [`${iconPrefix}icon`]: true,
-        [`${iconPrefix}${type}`]: true
+    <i class="j-icon" :class="{
+        [`${iconPrefix}`]: true,
+        [`${iconPrefix}-${type}`]: true
     }" @click="iconClick"></i>
 </template>
 

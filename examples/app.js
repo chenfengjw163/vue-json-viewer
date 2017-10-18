@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import JsonViewer from '../';
+import './css/ionicons.css';
 
 new Vue({
     el: '#app',
@@ -17,7 +18,7 @@ new Vue({
                 }
             },
             showCopy: true,
-            iconPrefix: 'ive-'
+            iconPrefix: 'ion'
         }
     })
 })
