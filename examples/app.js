@@ -11,7 +11,7 @@ new Vue({
         props: {
             value: {
                 name: [
-                    {name: 2}
+                    {name: 2},
                 ],
                 val: {
                     a: 1

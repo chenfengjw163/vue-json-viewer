@@ -94,13 +94,13 @@ export default {
         box-shadow:0 2px 7px rgba(0,0,0,.15);border-color:transparent;position:relative
     }
     .code-box {
-        height: 300px;
+        max-height: 300px;
         overflow: hidden;
         padding: 20px;
 
         &.more {
-            height: auto;
-            overflow: auto;
+            max-height: initial;
+            overflow: visible;
         }
     }
     
