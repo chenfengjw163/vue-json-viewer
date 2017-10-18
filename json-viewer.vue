@@ -1,0 +1,136 @@
+<template>
+    <div class="json-viewer">
+        <div class="tooltip">
+            <i class="icon ion-qr-scanner" @click.native="bigger" v-if="showBigger"></i>
+            <i class="icon ion-checkmark copied" v-if="copied"></i>
+            <i class="icon ion-md-clipboard copy" @click.native="clip" v-if="showCopy && !copied"></i>
+        </div>
+        <div class="code-box" :class="{'more': moreCode}">
+            <json-box :value="value" :key-name="keyName"></json-box>
+        </div>
+        <div class="more-code" @click="toggleMoreCode">
+            <i class="icon" :class="{'ion-ios-arrow-up': moreCode, 'ion-ios-arrow-down': !moreCode}"></i>
+        </div>
+    </div>
+</template>
+
+<script>
+import Vue from 'vue';
+import JsonBox from './json-box';
+import Clipboard from 'clipboard';
+
+Vue.component(JsonBox.name, JsonBox);
+
+export default {
+    name: 'JsonViewer',
+    props: {
+        value: [Object, Array, String, Number, Boolean],
+        keyName: String,
+        showCopy: {
+            type: Boolean,
+            default: true
+        },
+        showBigger: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {
+            copied: false,
+            biggerModal: false,
+            moreCode: false
+        };
+    },
+    methods: {
+        clip() {
+            const clipBoard = new Clipboard('.copy', {
+                text: () => {
+                    return JSON.stringify(this.$attrs.value, null, 2);
+                }
+            });
+
+            clipBoard.on('success', () => {
+                this.copied = true;
+                setTimeout(() => {
+                    this.copied = false;
+                }, 2000);
+                this.$Message.success('Code copied');
+                clipBoard.destroy();
+            });
+        },
+        bigger() {
+            this.biggerModal = true;
+        },
+        toggleMoreCode() {
+            this.moreCode = !this.moreCode;
+        }
+    }
+};
+</script>
+
+<style lang="scss">
+.json-viewer {
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    position: relative;
+
+    &:hover {
+        box-shadow:0 2px 7px rgba(0,0,0,.15);border-color:transparent;position:relative
+    }
+    .code-box {
+        height: 300px;
+        overflow: hidden;
+        padding: 20px;
+
+        &.more {
+            height: auto;
+            overflow: auto;
+        }
+    }
+    
+    .more-code {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        cursor: pointer;
+
+        .icon {
+            position: relative;
+            z-index: 2;
+        }
+
+        &:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            box-shadow: inset 0 -15px 30px #fff;
+        }
+    }
+
+    .tooltip {
+        position: absolute;
+        right: 12px;
+        top: 5px;
+        font-size: 18px;
+        color: #b2b2b2;
+        cursor: pointer;
+
+        .copied {
+            color: #19be6b;
+        }
+
+        .icon {
+            margin-left: 5px;
+        }
+    }
+}
+</style>
