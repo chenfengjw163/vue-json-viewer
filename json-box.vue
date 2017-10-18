@@ -1,7 +1,7 @@
 <template>
     <div class="node">
         <span class="key" v-if="keyName">
-            <i class="icon" v-if="isObject" :class="{'ion-arrow-down-b': toggle, 'ion-arrow-up-b': !toggle}" @click.stop="toggleNode"></i>
+            <j-icon v-if="isObject" :type="value ? 'ion-arrow-down-b' : 'ion-arrow-up-b'" @click.stop="toggleNode"></j-icon>
             {{keyName}}:
         </span>
         <commponent :is="`Json${valueType}`" :json-value="value" v-model="toggle" :key-name="keyName"></commponent>
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import JIcon from './json-icon'
 import JsonString from './types/json-string';
 import JsonNumber from './types/json-number';
 import JsonBoolean from './types/json-boolean';
@@ -54,7 +55,8 @@ export default {
         JsonNumber,
         JsonBoolean,
         JsonObject,
-        JsonArray
+        JsonArray,
+        JIcon
     }
 };
 </script>

@@ -1,21 +1,22 @@
 <template>
     <div class="json-viewer">
         <div class="tooltip">
-            <i class="icon ion-qr-scanner" @click.native="bigger" v-if="showBigger"></i>
-            <i class="icon ion-checkmark copied" v-if="copied"></i>
-            <i class="icon ion-md-clipboard copy" @click.native="clip" v-if="showCopy && !copied"></i>
+            <j-icon v-if="showBigger" type="ion-qr-scanner" @click="bigger"></j-icon>
+            <j-icon v-if="copied" class="copied" type="ion-checkmark"></j-icon>
+            <j-icon v-if="showCopy && !copied" class="copy" type="ion-md-clipboard" @click="clip"></j-icon>
         </div>
         <div class="code-box" :class="{'more': moreCode}">
             <json-box :value="value" :key-name="keyName"></json-box>
         </div>
         <div class="more-code" @click="toggleMoreCode">
-            <i class="icon" :class="{'ion-ios-arrow-up': moreCode, 'ion-ios-arrow-down': !moreCode}"></i>
+            <j-icon :type="moreCode ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></j-icon>
         </div>
     </div>
 </template>
 
 <script>
 import Vue from 'vue';
+import JIcon from './json-icon'
 import JsonBox from './json-box';
 import Clipboard from 'clipboard';
 
@@ -33,6 +34,15 @@ export default {
         showBigger: {
             type: Boolean,
             default: false
+        },
+        iconPrefix: {
+            type: String,
+            default: ''
+        }
+    },
+    provide() {
+        return {
+            iconPrefix: this.iconPrefix
         }
     },
     data() {
@@ -46,7 +56,7 @@ export default {
         clip() {
             const clipBoard = new Clipboard('.copy', {
                 text: () => {
-                    return JSON.stringify(this.$attrs.value, null, 2);
+                    return JSON.stringify(this.value, null, 2);
                 }
             });
 
@@ -55,7 +65,7 @@ export default {
                 setTimeout(() => {
                     this.copied = false;
                 }, 2000);
-                this.$Message.success('Code copied');
+                this.$emit('copied');
                 clipBoard.destroy();
             });
         },
@@ -65,6 +75,10 @@ export default {
         toggleMoreCode() {
             this.moreCode = !this.moreCode;
         }
+    },
+    components: {
+        JsonBox,
+        JIcon
     }
 };
 </script>

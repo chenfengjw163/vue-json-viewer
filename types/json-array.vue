@@ -1,6 +1,6 @@
 <template>
     <span>
-        <i v-if="!keyName" class="icon" :class="{'ion-arrow-down-b': value, 'ion-arrow-up-b': !value}" @click.stop="toggle"></i>
+        <j-icon v-if="!keyName" :type="value ? 'ion-arrow-down-b' : 'ion-arrow-up-b'" @click.stop="toggle"></j-icon>
         <span>[</span>
         <template v-if="jsonValue.length">
             <json-box v-show="value" v-for="(val, index) in jsonValue" :key="index" :value="val"></json-box>

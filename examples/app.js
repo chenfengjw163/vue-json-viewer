@@ -16,7 +16,8 @@ new Vue({
                     a: 1
                 }
             },
-            showCopy: true
+            showCopy: true,
+            iconPrefix: 'ive-'
         }
     })
 })
