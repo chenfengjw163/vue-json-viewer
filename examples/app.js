@@ -12,9 +12,24 @@ new Vue({
             value: {
                 name: [
                     {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
+                    {name: 2},
                 ],
                 val: {
-                    a: 1
+                    b: 'a',
+                    a: 'askldjfhlkajshdflhklsdafhkljahsdklfjhlkjsahdflkhaslkjdfhlkashdflkhaslkdhfklashdflkhasljkghlakshdfklhalsjkd',
+                    asd2: 1,
+                    asd: false
                 }
             },
             showCopy: true,

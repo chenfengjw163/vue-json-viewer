@@ -101,6 +101,8 @@ export default {
         &.more {
             max-height: initial;
             overflow: visible;
+            overflow-x: auto;
+            margin-bottom: 15px;
         }
     }
     

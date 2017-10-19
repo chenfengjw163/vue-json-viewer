@@ -67,6 +67,7 @@ export default {
     position: relative;
     color: #525252;
     font-family: Consolas,Menlo,Courier,monospace;
+    white-space: nowrap;
 
     &:after {
         content: ','
