@@ -4,36 +4,21 @@ import './css/ionicons.css';
 
 new Vue({
     el: '#app',
-    render: h => h(JsonViewer, {
-        domProps: {
-            id: '123'
-        },
-        props: {
-            value: {
+    data() {
+        return {
+            jsonData: {
                 name: [
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
-                    {name: 2},
+                  {key: 2},
+                  {key: 'hello word'},
                 ],
                 val: {
-                    b: 'a',
-                    a: 'askldjfhlkajshdflhklsdafhkljahsdklfjhlkjsahdflkhaslkjdfhlkashdflkhaslkdhfklashdflkhasljkghlakshdfklhalsjkd',
-                    asd2: 1,
-                    asd: false
+                  b: 'a',
+                  a: 'hello word',
+                  asd2: 1,
+                  asd: false
                 }
-            },
-            showCopy: true,
-            iconPrefix: 'ion'
+              }
         }
-    })
+    },
+    components: {JsonViewer}
 })
