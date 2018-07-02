@@ -40,9 +40,6 @@ export default {
     }
   }
 }
-<<<<<<< HEAD
-```
-=======
 ```
 ## Result
 ![ABC](http://oxqqtdux0.bkt.clouddn.com/WX20180702-172158.png) 
@@ -56,4 +53,3 @@ export default {
 | show-copy   | display the copy button |
 | show-bigger | display the bigger button      |
 | icon-prefix | Custom Font icon prefix      |
->>>>>>> eb16800904be1193c3eb7b87ff67048f22011a5b
