@@ -2,7 +2,7 @@
 
 Simple json display component,  based on vue
 
-## Installing：
+## Installing:
 Using npm:
 ``` 
 $ npm install vue-json-viewer
@@ -14,7 +14,7 @@ Using bower:
 $ yarn add vue-json-viewer
 ```
 
-## Example：
+## Example:
 
 ``` html 
 <json-viewer :value="jsonData" :show-copy="true" icon-prefix="ion" :show-bigger="true"></json-viewer>
@@ -41,7 +41,7 @@ export default {
   }
 }
 ```
-## Result
+## Result:
 ![ABC](http://oxqqtdux0.bkt.clouddn.com/WX20180702-172158.png) 
 
 
