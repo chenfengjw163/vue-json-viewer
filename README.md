@@ -1,20 +1,24 @@
 # vue-json-viewer
 
-简单json展示工具，基于vue框架开发的展示组件
+Simple json display component,  based on vue
 
-Examples:
-
-安装：
-
-``` cli
-npm install vue-json-viewer
+## Installing：
+Using npm:
+``` 
+$ npm install vue-json-viewer
 ```
-or
-``` cli
-yarn add vue-json-viewer
+Using bower:
+
+
+``` 
+$ yarn add vue-json-viewer
 ```
 
-使用：
+## Example：
+
+``` html 
+<json-viewer :value="jsonData" :show-copy="true" icon-prefix="ion" :show-bigger="true"></json-viewer>
+```
 
 ``` js
 export default {
@@ -36,4 +40,20 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 ```
+=======
+```
+## Result
+![ABC](http://oxqqtdux0.bkt.clouddn.com/WX20180702-172158.png) 
+
+
+## Options:
+
+| Property         | Description           | 
+| ----------- |:-------------|
+| value       | json data |
+| show-copy   | display the copy button |
+| show-bigger | display the bigger button      |
+| icon-prefix | Custom Font icon prefix      |
+>>>>>>> eb16800904be1193c3eb7b87ff67048f22011a5b
