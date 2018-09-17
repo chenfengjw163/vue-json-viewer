@@ -1,6 +1,6 @@
 import JsonView from './json-viewer';
 
 const install = (Vue) => {
-    Vue.components('JsonViewer', JsonView);
+    Vue.component('JsonViewer', JsonView);
 }
 export default Object.assign(JsonView, {install});
