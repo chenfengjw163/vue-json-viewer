@@ -6,7 +6,7 @@
             <j-icon v-if="showCopy && !copied" class="copy" type="clipboard" @click="clip"></j-icon>
         </div>
         <div class="code-box" :class="{'more': moreCode}">
-            <json-box :value="value" :key-name="keyName"></json-box>
+            <json-box :value="value" :key-name="keyName" :sort-keys="sortKeys"></json-box>
         </div>
         <div class="more-code" @click="toggleMoreCode">
             <j-icon :type="moreCode ? 'ios-arrow-up' : 'ios-arrow-down'"></j-icon>
@@ -38,6 +38,10 @@ export default {
         iconPrefix: {
             type: String,
             default: ''
+        },
+        sortKeys: {
+            type: Boolean,
+            default: true
         }
     },
     provide() {
@@ -105,7 +109,7 @@ export default {
             margin-bottom: 15px;
         }
     }
-    
+
     .more-code {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         position: absolute;
@@ -148,7 +152,7 @@ export default {
             font-size: 18px;
         }
     }
-    
+
     .j-icon {
         font-size: 12px;
     }

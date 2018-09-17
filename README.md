@@ -17,7 +17,12 @@ $ yarn add vue-json-viewer
 ## Example:
 
 ``` html
-<json-viewer :value="jsonData" :show-copy="true" icon-prefix="ion" :show-bigger="true"></json-viewer>
+<json-viewer
+  :value="jsonData"
+  :show-copy="true"
+  icon-prefix="ion"
+  :show-bigger="true"
+  :sort-keys="true" />
 ```
 
 ``` js
@@ -50,9 +55,10 @@ export default {
 
 ## Options:
 
-| Property         | Description           |
-| ----------- |:-------------|
-| value       | json data |
-| show-copy   | display the copy button |
-| show-bigger | display the bigger button      |
-| icon-prefix | Custom Font icon prefix      |
+| Property | Description |
+| ----------- |:------------- |
+| value | json data |
+| show-copy | display the copy button |
+| show-bigger | display the bigger button |
+| icon-prefix | Custom Font icon prefix |
+| sort-keys | Sort items by key names |
