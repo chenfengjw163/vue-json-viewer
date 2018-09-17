@@ -3,7 +3,7 @@
         <j-icon v-if="!keyName" :type="value ? 'arrow-down-b' : 'arrow-up-b'" @click.stop="toggle"></j-icon>
         <span>{</span>
         <template v-if="Object.keys(ordered).length">
-            <json-box v-show="value" v-for="(v, k) in ordered" :key="k" :key-name="k" :value="v"></json-box>
+            <json-box v-show="value" v-for="(v, k) in ordered" :sort-keys="sortKeys" :key="k" :key-name="k" :value="v"></json-box>
             <span v-show="!value" class="node-ellipsis">...</span>
         </template>
         <span>}</span>
@@ -22,14 +22,14 @@ export default {
     },
     computed: {
       ordered () {
-        const ordered = {};
-        if (this.sortKeys) {
-          Object.keys(this.jsonValue).sort().forEach(key => {
-            ordered[key] = this.jsonValue[key];
-          });
-        } else {
-          ordered = this.jsonValue
+        if (!this.sortKeys) {
+          return this.jsonValue;
         }
+
+        const ordered = {};
+        Object.keys(this.jsonValue).sort().forEach(key => {
+          ordered[key] = this.jsonValue[key];
+        });
         return ordered;
       }
     },
