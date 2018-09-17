@@ -4,7 +4,7 @@
             <j-icon v-if="isObject" :type="value ? 'arrow-down-b' : 'arrow-up-b'" @click.stop="toggleNode"></j-icon>
             {{keyName}}:
         </span>
-        <commponent :is="`Json${valueType}`" :json-value="value" v-model="toggle" :key-name="keyName"></commponent>
+        <commponent :is="`Json${valueType}`" :json-value="value" v-model="toggle" :key-name="keyName" :sort-keys="sortKeys"></commponent>
     </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
     name: 'JsonBox',
     props: {
         value: [Object, Array, String, Number, Boolean],
-        keyName: String
+        keyName: String,
+        sortKeys: Boolean
     },
     data() {
         return {
