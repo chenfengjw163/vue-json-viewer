@@ -20,7 +20,7 @@ import JsonFunction from './types/json-function';
 export default {
     name: 'JsonBox',
     props: {
-        value: [Object, Array, String, Number, Boolean],
+        value: [Object, Array, String, Number, Boolean, Function],
         keyName: String
     },
     data() {
