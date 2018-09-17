@@ -2,10 +2,10 @@
 
 Simple JSON viewer component, for Vue.js 2
 
-- [Installing](#Installing)
-- [Example](#Example)
-- [Options](#Options)
-- [Theming](#Theming)
+- [Installing](#installing)
+- [Example](#example)
+- [Options](#options)
+- [Theming](#theming)
 
 ## Installing
 Using npm:
@@ -117,7 +117,7 @@ new Vue({
 | Property | Description | Default |
 | ----------- |:------------- | ----------- |
 | `value` | JSON data (can be used with `v-model`) | **Required** |
-| `expand-depth` | Display the copy button | `1`  |
+| `expand-depth` | Collapse blocs under this depth | `1`  |
 | `copyable` | Display the copy button | `false`  |
 | `sort` | Sort keys before displaying | `false` |
 | `boxed` | Add a fancy "boxed" style to component | `false` |
