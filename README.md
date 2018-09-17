@@ -2,10 +2,15 @@
 
 Simple JSON viewer component, for Vue.js 2
 
-## Installing:
+- [Installing](#Installing)
+- [Example](#Example)
+- [Options](#Options)
+- [Theming](#Theming)
+
+## Installing
 Using npm:
 ```
-$ npm install vue-json-viewer
+$ npm install vue-json-viewer --save
 ```
 
 Using yarn:
@@ -13,7 +18,7 @@ Using yarn:
 $ yarn add vue-json-viewer
 ```
 
-## Example:
+## Example
 
 ``` html
 <json-viewer :value="jsonData"></json-viewer>
@@ -103,11 +108,11 @@ new Vue({
   }
 })
 ```
-## Result:
+### Preview
 ![preview](./example/preview.png)
 
 
-## Options:
+## Options
 
 | Property | Description | Default |
 | ----------- |:------------- | ----------- |
@@ -117,3 +122,61 @@ new Vue({
 | `sort` | Sort keys before displaying | `false` |
 | `boxed` | Add a fancy "boxed" style to component | `false` |
 | `theme` | Add a custom CSS class for theming purposes | `jv-light` |
+
+## Theming
+
+To create custom theme, (e.g. `my-awesome-json-theme`), in two easy steps:
+1. add `theme="my-awesome-json-theme"` to the JsonViewer component
+2. copy-pasta and customize this SCSS template:
+
+``` scss
+// values are default one from jv-light template
+.my-awesome-json-theme {
+  background: #fff;
+  white-space: nowrap;
+  color: #525252;
+  font-size: 14px;
+  font-family: Consolas, Menlo, Courier, monospace;
+
+  .jv-ellipsis {
+    color: #999;
+    background-color: #eee;
+    display: inline-block;
+    line-height: 0.9;
+    font-size: 0.9em;
+    padding: 0px 4px 2px 4px;
+    border-radius: 3px;
+    vertical-align: 2px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .jv-button { color: #49b3ff }
+  .jv-key { color: #111111 }
+  .jv-item {
+    &.jv-array { color: #111111 }
+    &.jv-boolean { color: #fc1e70 }
+    &.jv-function { color: #067bca }
+    &.jv-number { color: #fc1e70 }
+    &.jv-object { color: #111111 }
+    &.jv-undefined { color: #e08331 }
+    &.jv-string {
+      color: #42b983;
+      word-break: break-word;
+      white-space: normal;
+    }
+  }
+  .jv-code {
+    .jv-toggle {
+      &:before {
+        padding: 0px 2px;
+        border-radius: 2px;
+      }
+      &:hover {
+        &:before {
+          background: #eee;
+        }
+      }
+    }
+  }
+}
+```
