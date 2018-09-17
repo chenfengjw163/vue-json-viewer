@@ -1,5 +1,5 @@
 <template>
-    <span class="json-null">null</span>
+    <span class="json-null">{{ jsonValue === null ? 'null' : 'undefined' }}</span>
 </template>
 
 <script>

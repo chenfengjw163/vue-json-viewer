@@ -35,7 +35,7 @@ export default {
     },
     computed: {
         valueType() {
-            if (this.value === null) {
+            if (this.value === null || this.value === undefined) {
                 return 'Null';
             } else if (Array.isArray(this.value)) {
                 return 'Array';
