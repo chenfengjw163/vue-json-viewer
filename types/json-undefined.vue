@@ -1,10 +1,10 @@
 <template>
-    <span class="json-null">{{ jsonValue === null ? 'null' : 'undefined' }}</span>
+    <span class="json-undefined">{{ jsonValue === null ? 'null' : 'undefined' }}</span>
 </template>
 
 <script>
 export default {
-    name: 'JsonNull',
+    name: 'JsonUndefined',
     props: {
         jsonValue: Object
     }
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang="scss">
-.json-null {
+.json-undefined {
     color: #e08331;
 }
 </style>
