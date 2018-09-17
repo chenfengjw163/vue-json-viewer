@@ -12,6 +12,7 @@ new Vue({
                   {key: 'hello word'},
                 ],
                 val: {
+                  c: () = {},
                   b: 'a',
                   a: 'hello word',
                   asd2: 1,

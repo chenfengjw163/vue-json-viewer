@@ -4,19 +4,19 @@ Simple json display component,  based on vue
 
 ## Installing:
 Using npm:
-``` 
+```
 $ npm install vue-json-viewer
 ```
 Using bower:
 
 
-``` 
+```
 $ yarn add vue-json-viewer
 ```
 
 ## Example:
 
-``` html 
+``` html
 <json-viewer :value="jsonData" :show-copy="true" icon-prefix="ion" :show-bigger="true"></json-viewer>
 ```
 
@@ -31,6 +31,7 @@ export default {
           {key: 'hello word'},
         ],
         val: {
+          c: () = {},
           b: 'a',
           a: 'hello word',
           asd2: 1,
@@ -42,12 +43,12 @@ export default {
 }
 ```
 ## Result:
-![ABC](http://oxqqtdux0.bkt.clouddn.com/WX20180702-172158.png) 
+![ABC](http://oxqqtdux0.bkt.clouddn.com/WX20180702-172158.png)
 
 
 ## Options:
 
-| Property         | Description           | 
+| Property         | Description           |
 | ----------- |:-------------|
 | value       | json data |
 | show-copy   | display the copy button |

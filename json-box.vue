@@ -15,6 +15,7 @@ import JsonNumber from './types/json-number';
 import JsonBoolean from './types/json-boolean';
 import JsonObject from './types/json-object';
 import JsonArray from './types/json-array';
+import JsonFunction from './types/json-function';
 
 export default {
     name: 'JsonBox',
@@ -44,6 +45,8 @@ export default {
                 return 'String';
             } else if (typeof this.value === 'boolean') {
                 return 'Boolean';
+            } else if (typeof this.value === 'function') {
+                return 'Function';
             }
         },
         isObject() {
