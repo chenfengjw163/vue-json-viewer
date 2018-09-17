@@ -1,60 +1,78 @@
 <template>
   <div class="jv-node">
-    <span class="jv-toggle" :class="{open: !!toggle}" v-if="keyName && isObject" @click.stop="toggleNode"></span>
+    <span class="jv-toggle" :class="{open: !!expand}" v-if="keyName && isObject" @click.stop="toggleNode"></span>
     <span class="jv-key" v-if="keyName">
       {{keyName}}:
     </span>
-    <commponent v-model="toggle"
+    <commponent
+      :expand.sync="expand"
       :is="`Json${valueType}`"
       :json-value="value"
       :key-name="keyName"
-      :sort="sort"></commponent>
+      :sort="sort"
+      :depth="depth"></commponent>
   </div>
 </template>
 
 <script>
-import JIcon from './json-icon'
-import JsonString from './types/json-string';
-import JsonUndefined from './types/json-undefined';
-import JsonNumber from './types/json-number';
-import JsonBoolean from './types/json-boolean';
-import JsonObject from './types/json-object';
-import JsonArray from './types/json-array';
-import JsonFunction from './types/json-function';
+import JsonString from './types/json-string'
+import JsonUndefined from './types/json-undefined'
+import JsonNumber from './types/json-number'
+import JsonBoolean from './types/json-boolean'
+import JsonObject from './types/json-object'
+import JsonArray from './types/json-array'
+import JsonFunction from './types/json-function'
 
 export default {
   name: 'JsonBox',
+  inject: ['expandDepth'],
   props: {
     value: [Object, Array, String, Number, Boolean, Function],
     keyName: String,
-    sort: Boolean
+    sort: Boolean,
+    depth: {
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {
-      toggle: true
-    };
+      expand: true
+    }
   },
   methods: {
     toggleNode() {
-      this.toggle = !this.toggle;
+      this.expand = !this.expand
+
+      try {
+        this.$el.dispatchEvent(new Event("resized"))
+      } catch (e) {
+        // handle IE not supporting Event constructor
+        var evt = document.createEvent("Event")
+        evt.initEvent("resized", true, false)
+        this.$el.dispatchEvent(evt)
+      }
     }
+  },
+  mounted() {
+    this.expand = this.depth >= this.expandDepth ? false : true
   },
   computed: {
     valueType() {
       if (this.value === null || this.value === undefined) {
-        return 'Undefined';
+        return 'Undefined'
       } else if (Array.isArray(this.value)) {
-        return 'Array';
+        return 'Array'
       } else if (typeof this.value === 'object') {
-        return 'Object';
+        return 'Object'
       } else if (typeof this.value === 'number') {
-        return 'Number';
+        return 'Number'
       } else if (typeof this.value === 'string') {
-        return 'String';
+        return 'String'
       } else if (typeof this.value === 'boolean') {
-        return 'Boolean';
+        return 'Boolean'
       } else if (typeof this.value === 'function') {
-        return 'Function';
+        return 'Function'
       }
     },
     isObject() {
@@ -68,19 +86,14 @@ export default {
     JsonObject,
     JsonArray,
     JsonFunction,
-    JsonUndefined,
-    JIcon
+    JsonUndefined
   }
-};
+}
 </script>
 
 <style lang="scss">
 .jv-node {
-  font-size: 14px;
   position: relative;
-  color: #525252;
-  font-family: Consolas,Menlo,Courier,monospace;
-  white-space: nowrap;
 
   &:after {
     content: ','
@@ -90,13 +103,7 @@ export default {
       content: ''
     }
   }
-  /*.j-icon {
-      position: absolute;
-      left: -12px;
-      top: 3px;
-      color: #80848f;
-      cursor: pointer;
-  }*/
+
   & .jv-node {
     margin-left: 25px;
   }

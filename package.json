@@ -1,8 +1,8 @@
 {
   "name": "vue-json-viewer",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "vuejs展示json的组件",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "files": [
     "lib/*"
   ],
@@ -33,12 +33,12 @@
   },
   "contributors": [
     {
-    "name": "陈峰",
-    "email": "chenfengjw@hotmail.com"
+      "name": "陈峰",
+      "email": "chenfengjw@hotmail.com"
     },
     {
-    "name": "Sacha Stafyniak",
-    "email": "sacha.stafyniak@gmail.com"
+      "name": "Sacha Stafyniak",
+      "email": "sacha.stafyniak@gmail.com"
     }
   ],
   "dependencies": {

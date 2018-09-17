@@ -1,37 +1,38 @@
 <template>
   <div :class="jvClass">
-    <div class="jv-tooltip" v-if="tooltip">
-      <j-icon v-if="showBigger" type="qr-scanner" @click="bigger"></j-icon>
-      <j-icon v-if="copied" class="copied" type="checkmark"></j-icon>
-      <j-icon v-if="showCopy && !copied" class="copy" type="clipboard" @click="clip"></j-icon>
+    <div class="jv-tooltip" v-if="copyable">
+      <span class="jv-button" ref="clip" @click="clip" :class="{copied}">{{ copied ? 'copied!' : 'copy' }}</span>
     </div>
-    <div class="jv-code" :class="{'more': moreCode}">
-      <json-box :value="value" :key-name="keyName" :sort="sort"></json-box>
+    <div class="jv-code" :class="{'open': expandCode}">
+      <json-box
+        ref="jsonBox"
+        :value="value"
+        :key-name="keyName"
+        :sort="sort"></json-box>
     </div>
-    <div class="jv-more" @click="toggleMoreCode">
-      <j-icon :type="moreCode ? 'ios-arrow-up' : 'ios-arrow-down'"></j-icon>
+    <div v-if="expandableCode" class="jv-more" @click="toggleExpandCode">
+      <span class="jv-toggle" :class="{open: !!expandCode}"></span>
     </div>
 </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import JIcon from './json-icon'
-import JsonBox from './json-box';
-import Clipboard from 'clipboard';
+import Vue from 'vue'
+import JsonBox from './json-box'
+import Clipboard from 'clipboard'
 
-Vue.component(JsonBox.name, JsonBox);
+Vue.component(JsonBox.name, JsonBox)
 
 export default {
   name: 'JsonViewer',
   props: {
     value: [Object, Array, String, Number, Boolean],
     keyName: String,
-    showCopy: {
-      type: Boolean,
-      default: false
+    expandDepth: {
+      type: Number,
+      default: 1
     },
-    showBigger: {
+    copyable: {
       type: Boolean,
       default: false
     },
@@ -45,62 +46,68 @@ export default {
     },
     theme: {
       type: String,
-      default: "jv-light"
-    },
-    iconPrefix: {
-      type: String,
-      default: ''
+      default: 'jv-light'
     },
   },
   provide() {
     return {
-      iconPrefix: this.iconPrefix || 'ion'
+      expandDepth: this.expandDepth,
     }
   },
   data() {
     return {
       copied: false,
-      biggerModal: false,
-      moreCode: false
-    };
+      expandableCode: false,
+      expandCode: false
+    }
+  },
+  mounted: function () {
+    this.onResized()
+    this.$el.addEventListener("resized", this.onResized, true)
   },
   computed: {
     jvClass() {
       return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
-    },
-    tooltip() {
-      return this.showBigger || this.copied || (this.showCopy && !this.copied)
     }
   },
   methods: {
-    clip() {
-      const clipBoard = new Clipboard('.copy', {
-        text: () => {
-          return JSON.stringify(this.value, null, 2);
+    onResized() {
+      this.$nextTick(() => {
+        if (this.$refs.jsonBox.$el.clientHeight >= 250) {
+          this.expandableCode = true
+        } else {
+          this.expandableCode = false
         }
-      });
+      })
+    },
+    clip() {
+      if (this.copied) {
+        return
+      }
+
+      const clipBoard = new Clipboard(this.$refs.clip, {
+        text: () => {
+          return JSON.stringify(this.value, null, 2)
+        }
+      })
 
       clipBoard.on('success', () => {
-        this.copied = true;
+        this.copied = true
         setTimeout(() => {
-          this.copied = false;
-        }, 2000);
-        this.$emit('copied');
-        clipBoard.destroy();
-      });
+          this.copied = false
+        }, 2000)
+        this.$emit('copied')
+        clipBoard.destroy()
+      })
     },
-    bigger() {
-      this.biggerModal = true;
-    },
-    toggleMoreCode() {
-      this.moreCode = !this.moreCode;
+    toggleExpandCode() {
+      this.expandCode = !this.expandCode
     }
   },
   components: {
-    JsonBox,
-    JIcon
+    JsonBox
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -121,6 +128,10 @@ export default {
 
   &.jv-light {
     background: #fff;
+    white-space: nowrap;
+    color: #525252;
+    font-size: 14px;
+    font-family: Consolas, Menlo, Courier, monospace;
 
     .jv-ellipsis {
       color: #999;
@@ -134,6 +145,7 @@ export default {
       cursor: pointer;
       user-select: none;
     }
+    .jv-button { color: #49b3ff }
     .jv-key { color: #111111 }
     .jv-item {
       &.jv-array { color: #111111 }
@@ -141,17 +153,23 @@ export default {
       &.jv-function { color: #067bca }
       &.jv-number { color: #fc1e70 }
       &.jv-object { color: #111111 }
-      &.jv-string { color: #42b983 }
       &.jv-undefined { color: #e08331 }
-    }
-    .jv-toggle {
-      &:before {
-        padding: 0px 2px;
-        border-radius: 2px;
+      &.jv-string {
+        color: #42b983;
+        word-break: break-word;
+        white-space: normal;
       }
-      &:hover {
+    }
+    .jv-code {
+      .jv-toggle {
         &:before {
-          background: #eee;
+          padding: 0px 2px;
+          border-radius: 2px;
+        }
+        &:hover {
+          &:before {
+            background: #eee;
+          }
         }
       }
     }
@@ -162,49 +180,55 @@ export default {
     overflow: hidden;
     padding: 20px;
 
-    .jv-toggle {
-      cursor: pointer;
-
-      &:before {
-        content: "⏶";
-        padding: 0px 2px;
-        border-radius: 2px;
-        position: absolute;
-      }
-      &:after {
-        content: " ";
-        position: relative;
-        display: inline-block;
-        width: 8px;
-      }
-
-      &.open {
-        &:before {
-          content: "⏷";
-        }
-      }
-    }
-
-    &.more {
+    &.open {
       max-height: initial;
       overflow: visible;
       overflow-x: auto;
-      margin-bottom: 15px;
+      padding-bottom: 45px;
+    }
+  }
+
+  .jv-toggle {
+    cursor: pointer;
+
+    &:before {
+      content: "⏷";
+      padding: 0px 2px;
+      border-radius: 2px;
+      position: absolute;
+    }
+    &:after {
+      content: " ";
+      position: relative;
+      display: inline-block;
+      width: 8px;
+    }
+
+    &.open {
+      &:before {
+        content: "⏶";
+      }
     }
   }
 
   .jv-more {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     position: absolute;
+    z-index: 1;
     bottom: 0;
     left: 0;
     right: 0;
+    height: 40px;
+    width: 100%;
     text-align: center;
     cursor: pointer;
 
     .jv-toggle {
       position: relative;
+      top:40%;
       z-index: 2;
+      color: #888;
+      transition: all 0.1s;
+      // background: red;
     }
 
     &:after {
@@ -215,25 +239,39 @@ export default {
       bottom: 0;
       left: 0;
       z-index: 1;
-      box-shadow: inset 0 -15px 30px #fff;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(230, 230, 230, 1) 100%);
+      transition: all 0.1s;
+    }
+
+    &:hover {
+      .jv-toggle {
+        top:50%;
+        color: #111;
+      }
+
+      &:after {
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(230, 230, 230, 0.3) 100%);
+      }
+    }
+  }
+
+  .jv-button {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+    z-index: 5;
+
+    &.copied {
+      opacity: 0.4;
+      cursor: default;
     }
   }
 
   .jv-tooltip {
     position: absolute;
-    right: 12px;
-    top: 5px;
-    color: #b2b2b2;
-    cursor: pointer;
-
-    .copied {
-      color: #19be6b;
-    }
-
-    .j-icon {
-      margin-left: 5px;
-      font-size: 18px;
-    }
+    right: 15px;
+    top: 10px;
   }
 
   .j-icon {
