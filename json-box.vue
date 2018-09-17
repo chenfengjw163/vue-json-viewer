@@ -11,6 +11,7 @@
 <script>
 import JIcon from './json-icon'
 import JsonString from './types/json-string';
+import JsonNull from './types/json-null';
 import JsonNumber from './types/json-number';
 import JsonBoolean from './types/json-boolean';
 import JsonObject from './types/json-object';
@@ -34,7 +35,9 @@ export default {
     },
     computed: {
         valueType() {
-            if (Array.isArray(this.value)) {
+            if (this.value === null) {
+                return 'Null';
+            } else if (Array.isArray(this.value)) {
                 return 'Array';
             } else if (typeof this.value === 'object') {
                 return 'Object';
