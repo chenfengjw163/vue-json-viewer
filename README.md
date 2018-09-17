@@ -35,7 +35,9 @@ export default {
           b: 'a',
           a: 'hello word',
           asd2: 1,
-          asd: false
+          asd: false,
+          foo: null,
+          bar: undefined
         }
       }
     }

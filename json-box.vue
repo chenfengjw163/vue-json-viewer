@@ -63,6 +63,7 @@ export default {
         JsonObject,
         JsonArray,
         JsonFunction,
+        JsonNull,
         JIcon
     }
 };
