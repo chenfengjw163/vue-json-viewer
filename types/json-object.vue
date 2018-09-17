@@ -24,9 +24,11 @@ export default {
       ordered () {
         const ordered = {};
         if (this.sortKeys) {
-          Object.keys(this.jsonValue).sort().forEach(function(key) {
+          Object.keys(this.jsonValue).sort().forEach(key => {
             ordered[key] = this.jsonValue[key];
           });
+        } else {
+          ordered = this.jsonValue
         }
         return ordered;
       }
