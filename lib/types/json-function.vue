@@ -1,5 +1,5 @@
 <template>
-    <span class="json-function">&lt;function&gt;</span>
+    <span class="jv-item jv-function">&lt;function&gt;</span>
 </template>
 
 <script>

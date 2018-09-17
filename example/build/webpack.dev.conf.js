@@ -2,14 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './examples/app.js',
+    entry: './example/app.js',
     output: {
         path: path.join(__dirname, '../dist'),
         filename: 'main.js'
     },
     devtool: 'cheap-module-source-map',
     devServer: {
-        port: 8080
+        port: 8081
     },
     resolve: {
         extensions: ['.js', '.vue'],
@@ -59,7 +59,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './examples/index.html',
+            template: './example/index.html',
             inject: true
         }),
     ]

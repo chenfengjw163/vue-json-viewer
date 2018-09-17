@@ -1,5 +1,5 @@
 <template>
-    <span class="json-string">"{{jsonValue}}"</span>
+    <span class="jv-item jv-string">"{{jsonValue}}"</span>
 </template>
 
 <script>

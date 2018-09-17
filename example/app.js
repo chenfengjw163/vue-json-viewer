@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import JsonViewer from '../';
+import JsonViewer from '../lib';
 import './css/ionicons.css';
 
 new Vue({
@@ -12,7 +12,7 @@ new Vue({
                   {key: 'hello word'},
                 ],
                 val: {
-                  c: () = {},
+                  c: function() {},
                   b: 'a',
                   a: 'hello word',
                   asd2: 1,

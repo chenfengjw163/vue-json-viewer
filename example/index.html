@@ -8,7 +8,15 @@
 </head>
 <body>
     <div id="app">
-        <json-viewer :value="jsonData" :show-copy="true" icon-prefix="ion" :show-bigger="true"></json-viewer>
+        <json-viewer :value="jsonData"></json-viewer>
+        <hr />
+        <json-viewer
+          :value="jsonData"
+          icon-prefix="ion"
+          boxed
+          sort
+          show-copy
+          show-bigger></json-viewer>
     </div>
 </body>
 </html>
