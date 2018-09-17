@@ -16,7 +16,8 @@ new Vue({
                   a: 'hello word',
                   asd2: 1,
                   asd: false,
-                  foo: null
+                  foo: null,
+                  bar: undefined
                 }
               }
         }
