@@ -1,11 +1,18 @@
 {
   "name": "vue-json-viewer",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "vuejs展示json的组件",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "files": [
+    "lib/*"
+  ],
+  "directories": {
+    "lib": "./lib",
+    "example": "./example"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "examples": "webpack-dev-server --config ./examples/build/webpack.dev.conf.js"
+    "example": "webpack-dev-server --config ./example/build/webpack.dev.conf.js"
   },
   "repository": {
     "type": "git",
@@ -15,12 +22,25 @@
     "vue",
     "json"
   ],
-  "author": "chenfengjw@hotmail.com",
+  "homepage": "https://github.com/chenfengjw163/vue-json-viewer#readme",
+  "author": {
+    "name": "陈峰",
+    "email": "chenfengjw@hotmail.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/chenfengjw163/vue-json-viewer/issues"
   },
-  "homepage": "https://github.com/chenfengjw163/vue-json-viewer#readme",
+  "contributors": [
+    {
+      "name": "陈峰",
+      "email": "chenfengjw@hotmail.com"
+    },
+    {
+      "name": "Sacha Stafyniak",
+      "email": "sacha.stafyniak@gmail.com"
+    }
+  ],
   "dependencies": {
     "vue": "^2.5.2",
     "clipboard": "^1.7.1"
