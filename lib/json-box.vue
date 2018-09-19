@@ -102,8 +102,8 @@ export default {
         expand: this.expand
       },
       on: {
-        'update:expand': (event) => {
-          this.expand = event
+        'update:expand': value => {
+          this.expand = value
         }
       }
     }))
