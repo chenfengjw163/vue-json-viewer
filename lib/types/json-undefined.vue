@@ -1,12 +1,23 @@
-<template>
-  <span class="jv-item jv-undefined">{{ jsonValue === null ? 'null' : 'undefined' }}</span>
-</template>
-
 <script>
 export default {
   name: 'JsonUndefined',
+  functional: true,
   props: {
-    jsonValue: Object
+    jsonValue: {
+      type: Object,
+      default: null
+    }
+  },
+  render (h, { props }) {
+    return h('span', {
+      class: {
+        'jv-item': true,
+        'jv-undefined': true,
+      },
+      domProps: {
+        innerHTML: props.jsonValue === null ? 'null' : 'undefined'
+      }
+    })
   }
 }
 </script>

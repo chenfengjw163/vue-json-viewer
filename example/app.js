@@ -11,6 +11,7 @@ new Vue({
         total: 25,
         limit: 10,
         skip: 0,
+        success: true,
         links: {
           previous: undefined,
           next: function () {},

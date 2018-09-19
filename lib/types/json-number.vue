@@ -1,12 +1,23 @@
-<template>
-  <span class="jv-item jv-number">{{jsonValue}}</span>
-</template>
-
 <script>
 export default {
   name: 'JsonNumber',
+  functional: true,
   props: {
-    jsonValue: Number
+    jsonValue: {
+      type: Number,
+      required: true
+    }
+  },
+  render (h, { props }) {
+    return h('span', {
+      class: {
+        'jv-item': true,
+        'jv-number': true,
+      },
+      domProps: {
+        innerHTML: props.jsonValue.toString()
+      }
+    })
   }
 }
 </script>

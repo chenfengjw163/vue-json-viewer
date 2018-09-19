@@ -1,42 +1,33 @@
-<template>
-  <span>
-    <span class="jv-toggle" :class="{open: !!expand}" v-if="!keyName" @click.stop="toggle"></span>
-    <span class="jv-item jv-array">[</span>
-    <template v-if="jsonValue.length">
-      <json-box
-        v-show="expand"
-        v-for="(val, index) in ordered"
-        :sort="sort"
-        :key="index"
-        :value="val"
-        :depth="depth + 1"></json-box>
-      <span
-        v-show="!expand"
-        class="jv-ellipsis"
-        @click.stop="toggle"
-        :title="!expand ? `click to reveal ${jsonValue.length} hidden items` : ''">...</span>
-    </template>
-    <span class="jv-item jv-array"Z>]</span>
-  </span>
-</template>
-
 <script>
+import JsonBox from '../json-box'
+
 export default {
   name: 'JsonArray',
   props: {
-    jsonValue: Array,
-    keyName: String,
+    jsonValue: {
+      type: Array,
+      required: true
+    },
+    keyName: {
+      type: String,
+      default: ''
+    },
+    depth: {
+      type: Number,
+      default: 0
+    },
     sort: Boolean,
-    expand: Boolean,
-    depth: Number
+    expand: Boolean
   },
   computed: {
     ordered () {
+      let value = this.jsonValue
+
       if (!this.sort) {
-        return this.jsonValue
+        return value
       }
 
-      return this.jsonValue.sort()
+      return value.sort()
     }
   },
   methods: {
@@ -44,14 +35,88 @@ export default {
       this.$emit('update:expand', !this.expand)
 
       try {
-        this.$el.dispatchEvent(new Event("resized"))
+        this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
         // handle IE not supporting Event constructor
-        var evt = document.createEvent("Event")
-        evt.initEvent("resized", true, false)
+        var evt = document.createEvent('Event')
+        evt.initEvent('resized', true, false)
         this.$el.dispatchEvent(evt)
       }
     }
+  },
+  render (h) {
+    let elements = []
+
+    if (!this.keyName) {
+      elements.push(h('span', {
+        class: {
+          'jv-toggle': true,
+          'open': !!this.expand, 
+        },
+        on: {
+          click: this.toggle
+        }
+      }))
+    }
+
+    elements.push(h('span', {
+      class: {
+        'jv-item': true,
+        'jv-array': true, 
+      },
+      domProps: {
+        innerHTML: '['
+      }
+    }))
+
+    for (let key in this.ordered) {
+      let value = this.ordered[key]
+
+      elements.push(h(JsonBox, {
+        key,
+        style: {
+          display: !this.expand ? 'none' : undefined
+        },
+        props: {
+          sort: this.sort,
+          // keyName: key,
+          depth: this.depth + 1,
+          value,
+        }
+      }))
+    }
+
+    if (!this.expand) {
+      elements.push(h('span', {
+        style: {
+          display: this.expand ? 'none' : undefined
+        },
+        class: {
+          'jv-ellipsis': true, 
+        },
+        on: {
+          click: this.toggle
+        },
+        attrs: {
+          title: `click to reveal ${this.jsonValue.length} hidden items`
+        },
+        domProps: {
+          innerHTML: '...'
+        }
+      }))
+    }
+
+    elements.push(h('span', {
+      class: {
+        'jv-item': true,
+        'jv-array': true, 
+      },
+      domProps: {
+        innerHTML: ']'
+      }
+    }))
+
+    return h('span', elements)
   }
 }
 </script>
