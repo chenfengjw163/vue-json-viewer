@@ -1,19 +1,37 @@
 <template>
   <div :class="jvClass">
-    <div class="jv-tooltip" v-if="copyable">
-      <span class="jv-button" ref="clip" @click="clip" :class="{copied}">{{ copied ? 'copied!' : 'copy' }}</span>
+    <div 
+      v-if="copyable"
+      class="jv-tooltip"
+    >
+      <span  
+        ref="clip" 
+        class="jv-button"
+        :class="{copied}"
+        @click="clip" 
+      >{{ copied ? 'copied!' : 'copy' }}</span>
     </div>
-    <div class="jv-code" :class="{'open': expandCode}">
+    <div 
+      class="jv-code" 
+      :class="{'open': expandCode}"
+    >
       <json-box
         ref="jsonBox"
         :value="value"
-        :key-name="keyName"
-        :sort="sort"></json-box>
+        :sort="sort"
+      />
     </div>
-    <div v-if="expandableCode" class="jv-more" @click="toggleExpandCode">
-      <span class="jv-toggle" :class="{open: !!expandCode}"></span>
+    <div 
+      v-if="expandableCode" 
+      class="jv-more" 
+      @click="toggleExpandCode"
+    >
+      <span 
+        class="jv-toggle" 
+        :class="{open: !!expandCode}"
+      />
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -21,13 +39,16 @@ import Vue from 'vue'
 import JsonBox from './json-box'
 import Clipboard from 'clipboard'
 
-Vue.component(JsonBox.name, JsonBox)
-
 export default {
   name: 'JsonViewer',
+  components: {
+    JsonBox
+  },
   props: {
-    value: [Object, Array, String, Number, Boolean],
-    keyName: String,
+    value: {
+      type: [Object, Array, String, Number, Boolean, Function],
+      required: true
+    },
     expandDepth: {
       type: Number,
       default: 1
@@ -49,29 +70,29 @@ export default {
       default: 'jv-light'
     },
   },
-  provide() {
+  provide () {
     return {
       expandDepth: this.expandDepth,
     }
   },
-  data() {
+  data () {
     return {
       copied: false,
       expandableCode: false,
       expandCode: false
     }
   },
+  computed: {
+    jvClass () {
+      return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
+    }
+  },
   mounted: function () {
     this.onResized()
     this.$el.addEventListener("resized", this.onResized, true)
   },
-  computed: {
-    jvClass() {
-      return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
-    }
-  },
   methods: {
-    onResized() {
+    onResized () {
       this.$nextTick(() => {
         if (this.$refs.jsonBox.$el.clientHeight >= 250) {
           this.expandableCode = true
@@ -80,7 +101,7 @@ export default {
         }
       })
     },
-    clip() {
+    clip () {
       if (this.copied) {
         return
       }
@@ -100,12 +121,9 @@ export default {
         clipBoard.destroy()
       })
     },
-    toggleExpandCode() {
+    toggleExpandCode () {
       this.expandCode = !this.expandCode
     }
-  },
-  components: {
-    JsonBox
   }
 }
 </script>
@@ -120,9 +138,9 @@ export default {
     border-radius: 6px;
 
     &:hover {
-      box-shadow: 0 2px 7px rgba(0,0,0,.15);
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.15);
       border-color: transparent;
-      position: relative
+      position: relative;
     }
   }
 
@@ -140,20 +158,38 @@ export default {
       line-height: 0.9;
       font-size: 0.9em;
       padding: 0px 4px 2px 4px;
+      margin: 0 4px;
       border-radius: 3px;
       vertical-align: 2px;
       cursor: pointer;
       user-select: none;
     }
-    .jv-button { color: #49b3ff }
-    .jv-key { color: #111111 }
+    .jv-button {
+      color: #49b3ff;
+    }
+    .jv-key {
+      color: #111111;
+      margin-right: 4px;
+    }
     .jv-item {
-      &.jv-array { color: #111111 }
-      &.jv-boolean { color: #fc1e70 }
-      &.jv-function { color: #067bca }
-      &.jv-number { color: #fc1e70 }
-      &.jv-object { color: #111111 }
-      &.jv-undefined { color: #e08331 }
+      &.jv-array {
+        color: #111111;
+      }
+      &.jv-boolean {
+        color: #fc1e70;
+      }
+      &.jv-function {
+        color: #067bca;
+      }
+      &.jv-number {
+        color: #fc1e70;
+      }
+      &.jv-object {
+        color: #111111;
+      }
+      &.jv-undefined {
+        color: #e08331;
+      }
       &.jv-string {
         color: #42b983;
         word-break: break-word;
@@ -201,7 +237,7 @@ export default {
       content: " ";
       position: relative;
       display: inline-block;
-      width: 8px;
+      width: 16px;
     }
 
     &.open {
@@ -224,7 +260,7 @@ export default {
 
     .jv-toggle {
       position: relative;
-      top:40%;
+      top: 40%;
       z-index: 2;
       color: #888;
       transition: all 0.1s;
@@ -239,18 +275,26 @@ export default {
       bottom: 0;
       left: 0;
       z-index: 1;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(230, 230, 230, 1) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 20%,
+        rgba(230, 230, 230, 1) 100%
+      );
       transition: all 0.1s;
     }
 
     &:hover {
       .jv-toggle {
-        top:50%;
+        top: 50%;
         color: #111;
       }
 
       &:after {
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(230, 230, 230, 0.3) 100%);
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 20%,
+          rgba(230, 230, 230, 0.3) 100%
+        );
       }
     }
   }
