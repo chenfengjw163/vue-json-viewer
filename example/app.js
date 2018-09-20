@@ -1,10 +1,24 @@
 import Vue from 'vue'
-import JsonViewer from '../lib'
+import JsonViewer from '../dist/vue-json-viewer'
 
 Vue.use(JsonViewer)
 
 new Vue({
   el: '#app',
+  render() {
+    return (
+      <div>
+        <json-viewer value={this.jsonData}></json-viewer>
+        <hr />
+        <json-viewer
+          value={this.jsonData}
+          expand-depth={5}
+          copyable
+          boxed
+          sort></json-viewer>
+      </div>
+    )
+  },
   data() {
     return {
       jsonData: {

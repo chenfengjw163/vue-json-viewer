@@ -1,22 +1,23 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-    entry: './example/app.js',
+    entry: './lib/index.js',
     output: {
         path: path.join(__dirname, '../dist'),
-        filename: 'main.js'
-    },
-    devtool: 'cheap-module-source-map',
-    devServer: {
-        port: 8081
+        filename: 'vue-json-viewer.js',
+        libraryTarget: 'umd',
+        library: 'JsonView'
     },
     resolve: {
         extensions: ['.js', '.vue'],
         modules: [
-            path.join(__dirname, '../'),
             'node_modules'
         ]
+    },
+    externals: {
+      vue: 'vue'
     },
     module: {
         rules: [
@@ -54,10 +55,15 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './example/index.html',
-            inject: true
+        new webpack.optimize.UglifyJsPlugin({
+            parallel: true,
+            uglifyOptions: {
+                compress: {
+                    warnings: false
+                },
+                comments: false
+            }
         }),
+        // new BundleAnalyzerPlugin()
     ]
 }
