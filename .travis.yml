@@ -1,12 +1,10 @@
 language : node_js
 node_js:
  - "10"
- - "9"
 
 branches:
   only:
   - master
-  - stable
 
 install:
 - npm install
