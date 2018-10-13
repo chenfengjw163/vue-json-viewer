@@ -2,7 +2,8 @@
 
 Simple JSON viewer component, for Vue.js 2
 
-[![Build Status](https://travis-ci.org/<chenfengjw163>/<vue-json-viewer>.svg?branch=master)](https://travis-ci.org/<chenfengjw163>/<vue-json-viewer>)
+[![Build Status](https://travis-ci.org/chenfengjw163/vue-json-viewer.svg?branch=master)](https://travis-ci.org/chenfengjw163/vue-json-viewer)
+
 
 
 - [Installing](#installing)
