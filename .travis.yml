@@ -1,0 +1,35 @@
+language : node_js
+node_js:
+ - "10"
+ - "9"
+
+branches:
+  only:
+  - master
+  - stable
+
+install:
+- npm install
+
+os:
+ - linux
+
+stages:
+ - name: deploy
+
+jobs:
+ include:
+   - stage: deploy
+     script:
+       - echo "NPM Deploying Started ..."
+       - npm version
+       - npm run build
+       - echo "NPM Building Finished."
+
+     deploy:
+       provider: npm
+       email: chenfengjw@hotmail.com
+       api_key: "$NPM_TOKEN"
+       skip_cleanup: true
+       on:
+         all_branches: true
