@@ -98,7 +98,7 @@ fabric.properties
 nbproject/private/
 public/build/bundle
 nbbuild/
-dist/
+# dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
