@@ -4,7 +4,7 @@
   "description": "vuejs展示json的组件",
   "main": "dist/vue-json-viewer.js",
   "files": [
-    "lib/*"
+    "dist/*"
   ],
   "directories": {
     "lib": "./lib",
