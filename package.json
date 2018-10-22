@@ -27,7 +27,7 @@
     "name": "陈峰",
     "email": "chenfengjw@hotmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/chenfengjw163/vue-json-viewer/issues"
   },
