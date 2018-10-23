@@ -2,9 +2,8 @@
 
 Simple JSON viewer component, for Vue.js 2
 
-[![Build Status](https://travis-ci.org/chenfengjw163/vue-json-viewer.svg?branch=master)](https://travis-ci.org/chenfengjw163/vue-json-viewer)
-
-
+[![Travis](https://img.shields.io/travis/chenfengjw163/vue-json-viewer/master.svg?style=flat-square)](https://travis-ci.org/chenfengjw163/vue-json-viewer)
+[![npm](https://img.shields.io/npm/v/vue-json-viewer.svg?style=flat-square)](https://www.npmjs.com/package/vue-json-viewer)
 
 - [Installing](#installing)
 - [Example](#example)

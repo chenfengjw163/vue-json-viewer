@@ -225,25 +225,19 @@ export default {
   }
 
   .jv-toggle {
+    background-image: url(./icon.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
     cursor: pointer;
-
-    &:before {
-      content: "⏷";
-      padding: 0px 2px;
-      border-radius: 2px;
-      position: absolute;
-    }
-    &:after {
-      content: " ";
-      position: relative;
-      display: inline-block;
-      width: 16px;
-    }
+    width: 10px;
+    height: 10px;
+    margin-right: 2px;
+    display: inline-block;
+    transition: transform 0.1s;
 
     &.open {
-      &:before {
-        content: "⏶";
-      }
+      transform: rotate(90deg)
     }
   }
 
@@ -264,6 +258,7 @@ export default {
       z-index: 2;
       color: #888;
       transition: all 0.1s;
+      transform: rotate(-90deg)
       // background: red;
     }
 
@@ -278,14 +273,14 @@ export default {
       background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0) 20%,
-        rgba(230, 230, 230, 1) 100%
+        rgba(230, 230, 230, 0.3) 100%
       );
       transition: all 0.1s;
     }
 
     &:hover {
       .jv-toggle {
-        top: 50%;
+        top: 50%; 
         color: #111;
       }
 
