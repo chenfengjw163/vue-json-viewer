@@ -1,9 +1,26 @@
 const path = require('path');
-const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+    mode: 'production',
     entry: './lib/index.js',
+    optimization: {
+        minimizer: [
+          new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: true,
+            uglifyOptions: {
+              compress: {
+                warnings: false
+              },
+              comments: false
+            }
+          }),
+        ],
+    },
     output: {
         path: path.join(__dirname, '../dist'),
         filename: 'vue-json-viewer.js',
@@ -27,8 +44,8 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use: ['vue-style-loader', 'css-loader', 'autoprefixer-loader']
+                test: /\.s?css$/,
+                use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -55,15 +72,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            parallel: true,
-            uglifyOptions: {
-                compress: {
-                    warnings: false
-                },
-                comments: false
-            }
-        }),
-        // new BundleAnalyzerPlugin()
+        new VueLoaderPlugin()
     ]
+}
+
+if (process.argv.some(a => a === '--report')) {
+    module.exports.plugins.push(new BundleAnalyzerPlugin());
 }
