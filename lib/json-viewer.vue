@@ -13,7 +13,7 @@
     </div>
     <div 
       class="jv-code" 
-      :class="{'open': expandCode}"
+      :class="{'open': expandCode, boxed}"
     >
       <json-box
         ref="jsonBox"
@@ -22,7 +22,7 @@
       />
     </div>
     <div 
-      v-if="expandableCode" 
+      v-if="expandableCode && boxed" 
       class="jv-more" 
       @click="toggleExpandCode"
     >
@@ -88,8 +88,10 @@ export default {
     }
   },
   mounted: function () {
-    this.onResized()
-    this.$el.addEventListener("resized", this.onResized, true)
+    if (this.boxed && this.$refs.jsonBox) {
+      this.onResized()
+      this.$refs.jsonBox.$el.addEventListener("resized", this.onResized, true)
+    }
   },
   methods: {
     onResized () {
@@ -212,12 +214,15 @@ export default {
   }
 
   .jv-code {
-    max-height: 300px;
     overflow: hidden;
     padding: 20px;
 
+    &.boxed {
+      max-height: 300px;
+    }
+
     &.open {
-      max-height: initial;
+      max-height: initial !important;
       overflow: visible;
       overflow-x: auto;
       padding-bottom: 45px;
