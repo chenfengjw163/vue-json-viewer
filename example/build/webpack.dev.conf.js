@@ -1,7 +1,9 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: './example/app.js',
     output: {
         path: path.join(__dirname, '../dist'),
@@ -9,7 +11,8 @@ module.exports = {
     },
     devtool: 'cheap-module-source-map',
     devServer: {
-        port: 8081
+        port: 8081,
+        disableHostCheck: true
     },
     resolve: {
         extensions: ['.js', '.vue'],
@@ -26,8 +29,8 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use: ['vue-style-loader', 'css-loader', 'autoprefixer-loader']
+                test: /\.s?css$/,
+                use: ['vue-style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -59,5 +62,6 @@ module.exports = {
             template: './example/index.html',
             inject: true
         }),
+        new VueLoaderPlugin(),
     ]
 }
