@@ -1,6 +1,6 @@
 {
   "name": "vue-json-viewer",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "vuejs展示json的组件",
   "main": "dist/vue-json-viewer.js",
   "files": [

@@ -101,7 +101,6 @@ export default {
   methods: {
     onResized () {
       this.$nextTick(() => {
-        console.log(this.$refs.jsonBox.$el.clientHeight)
         if (this.$refs.jsonBox.$el.clientHeight >= 250) {
           this.expandableCode = true
         } else {
