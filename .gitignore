@@ -147,3 +147,6 @@ nbproject/*
 .DS_Store
 .devhost
 examples/dist/
+/vue-json-viewer.js
+/ssr.js
+/style.css

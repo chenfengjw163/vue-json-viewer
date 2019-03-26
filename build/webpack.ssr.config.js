@@ -1,5 +1,7 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -11,7 +13,7 @@ module.exports = {
           new UglifyJsPlugin({
             cache: true,
             parallel: true,
-            sourceMap: true,
+            sourceMap: false,
             uglifyOptions: {
               compress: {
                 warnings: false
@@ -19,11 +21,14 @@ module.exports = {
               comments: false
             }
           }),
+          new OptimizeCSSAssetsPlugin({
+            cssProcessorOptions: { safe: true, sourceMap: false}
+          })
         ],
     },
     output: {
         path: path.join(__dirname, '../'),
-        filename: 'vue-json-viewer.js',
+        filename: 'ssr.js',
         libraryTarget: 'umd',
         library: 'JsonView',
         globalObject: 'this'
@@ -46,7 +51,7 @@ module.exports = {
             },
             {
                 test: /\.s?css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -73,7 +78,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+          filename: 'style.css',
+          allChunks: true,
+        })
     ]
 }
 

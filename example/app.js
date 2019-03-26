@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import JsonViewer from '../dist/vue-json-viewer'
+import JsonViewer from '../vue-json-viewer'
 
 Vue.use(JsonViewer)
 
