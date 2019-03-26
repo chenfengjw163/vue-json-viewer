@@ -38,10 +38,13 @@ $ yarn add vue-json-viewer
 
 ``` js
 import Vue from 'vue'
-import JsonViewer from '../lib'
+import JsonViewer from 'vue-json-viewer'
 
 // Import JsonViewer as a Vue.js plugin
 Vue.use(JsonViewer)
+// or 
+// components: {JsonViewer}
+
 
 new Vue({
   el: '#app',
@@ -111,6 +114,22 @@ new Vue({
   }
 })
 ```
+### SSR
+``` js
+import JsonViewer from 'vue-json-viewer/ssr'
+
+// Import JsonViewer as a Vue.js plugin
+Vue.use(JsonViewer)
+// or 
+// components: {JsonViewer}
+```
+and
+
+``` js
+import 'vue-json-viewer/style.css'
+```
+
+
 ### Preview
 ![preview](./example/preview.png)
 
