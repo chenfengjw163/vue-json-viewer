@@ -15,9 +15,6 @@ module.exports = {
             parallel: true,
             sourceMap: false,
             uglifyOptions: {
-              compress: {
-                warnings: false
-              },
               comments: false
             }
           }),
