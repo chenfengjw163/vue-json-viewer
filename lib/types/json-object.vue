@@ -53,7 +53,7 @@ export default {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
-          'open': !!this.expand, 
+          'open': !!this.expand,
         },
         on: {
           click: this.toggle
@@ -64,7 +64,7 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-object': true, 
+        'jv-object': true,
       },
       domProps: {
         innerHTML: '{'
@@ -90,13 +90,13 @@ export default {
       }
     }
 
-    if (!this.expand) {
+    if (!this.expand && Object.keys(this.jsonValue).length) {
       elements.push(h('span', {
         style: {
           display: this.expand ? 'none' : undefined
         },
         class: {
-          'jv-ellipsis': true, 
+          'jv-ellipsis': true,
         },
         on: {
           click: this.toggle
@@ -113,7 +113,7 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-object': true, 
+        'jv-object': true,
       },
       domProps: {
         innerHTML: '}'

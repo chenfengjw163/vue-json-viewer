@@ -51,7 +51,7 @@ export default {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
-          'open': !!this.expand, 
+          'open': !!this.expand,
         },
         on: {
           click: this.toggle
@@ -62,20 +62,18 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-array': true, 
+        'jv-array': true,
       },
       domProps: {
         innerHTML: '['
       }
     }))
 
-    for (let key in this.ordered) {
-      let value = this.ordered[key]
-
+    this.ordered.forEach((value, key) => {
       elements.push(h(JsonBox, {
         key,
         style: {
-          display: !this.expand ? 'none' : undefined
+          display: this.expand ? undefined : 'none'
         },
         props: {
           sort: this.sort,
@@ -84,15 +82,15 @@ export default {
           value,
         }
       }))
-    }
+    })
 
-    if (!this.expand) {
+    if (!this.expand && this.jsonValue.length) {
       elements.push(h('span', {
         style: {
-          display: this.expand ? 'none' : undefined
+          display: undefined
         },
         class: {
-          'jv-ellipsis': true, 
+          'jv-ellipsis': true,
         },
         on: {
           click: this.toggle
@@ -109,7 +107,7 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-array': true, 
+        'jv-array': true,
       },
       domProps: {
         innerHTML: ']'
