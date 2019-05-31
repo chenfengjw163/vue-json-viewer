@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import JsonViewer from '../vue-json-viewer'
+import JsonViewer from '../lib'
 
 Vue.use(JsonViewer)
 
@@ -34,6 +34,7 @@ new Vue({
           {
             id: '5968fcad629fa84ab65a5247',
             firstname: 'Ada',
+            link: 'http://google.com',
             lastname: 'Lovelace',
             awards: null,
             known: [

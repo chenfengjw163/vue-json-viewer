@@ -26,7 +26,7 @@ export default {
       }
 
       const ordered = {}
-      Object.keys(this.jsonValue).sort().forEach(key => {
+      Object.keys(this.jsonValue).forEach(key => {
         ordered[key] = this.jsonValue[key]
       })
       return ordered

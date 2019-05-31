@@ -8,7 +8,6 @@
         ref="clip" 
         class="jv-button"
         :class="{copied}"
-        @click="clip" 
       >{{ copied ? 'copied!' : 'copy' }}</span>
     </div>
     <div 
@@ -97,6 +96,16 @@ export default {
       this.onResized()
       this.$refs.jsonBox.$el.addEventListener("resized", this.onResized, true)
     }
+    if (this.copyable) {
+      const clipBoard = new Clipboard(this.$refs.clip, {
+        text: () => {
+          return JSON.stringify(this.value, null, 2)
+        }
+      });
+      clipBoard.on('success', () => {
+        this.onCopied()
+      })
+    }
   },
   methods: {
     onResized () {
@@ -108,25 +117,15 @@ export default {
         }
       })
     },
-    clip () {
+    onCopied() {
       if (this.copied) {
-        return
+        return;
       }
-
-      const clipBoard = new Clipboard(this.$refs.clip, {
-        text: () => {
-          return JSON.stringify(this.value, null, 2)
-        }
-      })
-
-      clipBoard.on('success', () => {
-        this.copied = true
-        setTimeout(() => {
-          this.copied = false
-        }, 2000)
-        this.$emit('copied')
-        clipBoard.destroy()
-      })
+      this.copied = true
+      setTimeout(() => {
+        this.copied = false
+      }, 2000)
+      this.$emit('copied')
     },
     toggleExpandCode () {
       this.expandCode = !this.expandCode
