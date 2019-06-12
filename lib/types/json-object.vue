@@ -3,6 +3,11 @@ import JsonBox from '../json-box'
 
 export default {
   name: 'JsonObject',
+  data() {
+    return {
+      value: {}
+    }
+  },
   props: {
     jsonValue: {
       type: Object,
@@ -22,20 +27,35 @@ export default {
   computed: {
     ordered () {
       if (!this.sort) {
-        return this.jsonValue
+        return this.value
       }
 
       const ordered = {}
-      Object.keys(this.jsonValue).forEach(key => {
-        ordered[key] = this.jsonValue[key]
+      Object.keys(this.value).sort().forEach(key => {
+        ordered[key] = this.value[key]
       })
       return ordered
     }
   },
+  watch: {
+    jsonValue(newVal) {
+      this.setValue(newVal);
+    }
+  },
+  mounted() {
+    this.setValue(this.jsonValue);
+  },
   methods: {
+    setValue(val) {
+      setTimeout(() => {
+        this.value = val;
+      }, 0);
+    },
     toggle() {
       this.$emit('update:expand', !this.expand)
-
+      this.dispatchEvent();
+    },
+    dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
@@ -90,7 +110,7 @@ export default {
       }
     }
 
-    if (!this.expand && Object.keys(this.jsonValue).length) {
+    if (!this.expand && Object.keys(this.value).length) {
       elements.push(h('span', {
         style: {
           display: this.expand ? 'none' : undefined

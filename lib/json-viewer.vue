@@ -37,6 +37,7 @@
 import Vue from 'vue'
 import JsonBox from './json-box'
 import Clipboard from 'clipboard'
+import {debounce} from './utils';
 
 export default {
   name: 'JsonViewer',
@@ -92,6 +93,7 @@ export default {
     }
   },
   mounted: function () {
+    this.debounceResized = debounce(this.debResized.bind(this), 200);
     if (this.boxed && this.$refs.jsonBox) {
       this.onResized()
       this.$refs.jsonBox.$el.addEventListener("resized", this.onResized, true)
@@ -109,6 +111,9 @@ export default {
   },
   methods: {
     onResized () {
+      this.debounceResized();
+    },
+    debResized() {
       this.$nextTick(() => {
         if (this.$refs.jsonBox.$el.clientHeight >= 250) {
           this.expandableCode = true

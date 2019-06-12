@@ -3,6 +3,11 @@ import JsonBox from '../json-box'
 
 export default {
   name: 'JsonArray',
+  data() {
+    return {
+      value: []
+    }
+  },
   props: {
     jsonValue: {
       type: Array,
@@ -21,7 +26,7 @@ export default {
   },
   computed: {
     ordered () {
-      let value = this.jsonValue
+      let value = this.value
 
       if (!this.sort) {
         return value
@@ -30,7 +35,27 @@ export default {
       return value.sort()
     }
   },
+  watch: {
+    jsonValue(newVal) {
+      this.setValue(newVal);
+    }
+  },
+  mounted() {
+    this.setValue(this.jsonValue);
+  },
   methods: {
+    setValue(vals, index = 0) {
+      if (index === 0) {
+        this.value = [];
+      }
+      setTimeout(() => {
+        this.value.push(vals[index]);
+
+        if (vals[index + 1]) {
+          this.setValue(vals, index + 1);
+        }
+      }, 0);
+    },
     toggle() {
       this.$emit('update:expand', !this.expand)
 
@@ -42,7 +67,8 @@ export default {
         evt.initEvent('resized', true, false)
         this.$el.dispatchEvent(evt)
       }
-    }
+    },
+    
   },
   render (h) {
     let elements = []
@@ -84,7 +110,7 @@ export default {
       }))
     })
 
-    if (!this.expand && this.jsonValue.length) {
+    if (!this.expand && this.value.length) {
       elements.push(h('span', {
         style: {
           display: undefined
@@ -96,7 +122,7 @@ export default {
           click: this.toggle
         },
         attrs: {
-          title: `click to reveal ${this.jsonValue.length} hidden items`
+          title: `click to reveal ${this.value.length} hidden items`
         },
         domProps: {
           innerHTML: '...'
