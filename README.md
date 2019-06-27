@@ -1,5 +1,7 @@
 # vue-json-viewer
 
+[中文版](https://github.com/chenfengjw163/vue-json-viewer/blob/master/README_CN.md)
+
 Simple JSON viewer component, for Vue.js 2.
 
 Support for incremental update components
