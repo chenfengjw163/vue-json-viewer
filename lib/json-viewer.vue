@@ -249,10 +249,6 @@ export default {
     margin-right: 2px;
     display: inline-block;
     transition: transform 0.1s;
-
-    &.open {
-      transform: rotate(90deg)
-    }
   }
 
   .jv-more {
@@ -272,8 +268,11 @@ export default {
       z-index: 2;
       color: #888;
       transition: all 0.1s;
-      transform: rotate(-90deg)
-      // background: red;
+      transform: rotate(90deg);
+
+      &.open {
+        transform: rotate(-90deg)
+      }
     }
 
     &:after {
