@@ -8,6 +8,7 @@ Support for incremental update components
 
 [![Travis](https://img.shields.io/travis/chenfengjw163/vue-json-viewer/master.svg?style=flat-square)](https://travis-ci.org/chenfengjw163/vue-json-viewer)
 [![npm](https://img.shields.io/npm/v/vue-json-viewer.svg?style=flat-square)](https://www.npmjs.com/package/vue-json-viewer)
+![npm](https://img.shields.io/npm/dw/vue-json-viewer.svg?style=flat-square)
 
 - [Installing](#installing)
 - [Example](#example)
