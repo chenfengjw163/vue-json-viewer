@@ -51,7 +51,7 @@ export default {
       setTimeout(() => {
         this.value.push(vals[index]);
 
-        if (vals[index + 1]) {
+        if (this.value.length < vals.length) {
           this.setValue(vals, index + 1);
         }
       }, 0);
@@ -94,7 +94,6 @@ export default {
         innerHTML: '['
       }
     }))
-
     this.ordered.forEach((value, key) => {
       elements.push(h(JsonBox, {
         key,
