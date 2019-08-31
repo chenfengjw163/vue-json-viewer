@@ -13,7 +13,10 @@ new Vue({
         <json-viewer
           value={this.jsonData}
           expand-depth={5}
-          copyable
+          copyable={{
+            copyText: '复制',
+            copiedText: '复制成功'
+          }}
           boxed
           sort></json-viewer>
       </div>

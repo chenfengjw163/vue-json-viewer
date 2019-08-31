@@ -141,7 +141,7 @@ import 'vue-json-viewer/style.css'
 | ----------- |:------------- | ----------- |
 | `value` | json对象的值，可以使用v-model，支持响应式 | **必填** |
 | `expand-depth` | 默认展开的层级 | `1`  |
-| `copyable` | 展示复制按钮 | `false`  |
+| `copyable` | 展示复制按钮，默认文案为：copy、copied!, 你可以设置一个对象`{copyText: 'copy', copiedText: 'copied'}` 来自定义复制按钮文案 | `false`  |
 | `sort` | 按照key排序展示 | `false` |
 | `boxed` | 为组件添加一个盒样式 | `false` |
 | `theme` | 添加一个自定义的样式class用作主题 | `jv-light` |

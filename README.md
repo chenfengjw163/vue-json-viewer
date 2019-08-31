@@ -145,7 +145,7 @@ import 'vue-json-viewer/style.css'
 | ----------- |:------------- | ----------- |
 | `value` | JSON data (can be used with `v-model`) | **Required** |
 | `expand-depth` | Collapse blocs under this depth | `1`  |
-| `copyable` | Display the copy button | `false`  |
+| `copyable` | Display the copy button, you can customize copy text just set `{copyText: 'copy', copiedText: 'copied'}` or set `true` use default copytext  | `false`  |
 | `sort` | Sort keys before displaying | `false` |
 | `boxed` | Add a fancy "boxed" style to component | `false` |
 | `theme` | Add a custom CSS class for theming purposes | `jv-light` |

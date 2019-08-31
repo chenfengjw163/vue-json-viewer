@@ -8,7 +8,7 @@
         ref="clip" 
         class="jv-button"
         :class="{copied}"
-      >{{ copied ? 'copied!' : 'copy' }}</span>
+      >{{ copied ? copyText.copiedText : copyText.copyText }}</span>
     </div>
     <div 
       class="jv-code" 
@@ -54,7 +54,7 @@ export default {
       default: 1
     },
     copyable: {
-      type: Boolean,
+      type: [Boolean, Object],
       default: false
     },
     sort: {
@@ -88,8 +88,16 @@ export default {
     }
   },
   computed: {
-    jvClass () {
+    jvClass() {
       return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
+    },
+    copyText() {
+      const { copyText, copiedText } = this.copyable
+
+      return {
+        copyText: copyText || 'copy',
+        copiedText: copiedText || 'copied!'
+      }
     }
   },
   mounted: function () {
