@@ -87,7 +87,7 @@ export default {
         'jv-object': true,
       },
       domProps: {
-        innerHTML: '{'
+        innerText: '{'
       }
     }))
 
@@ -125,7 +125,7 @@ export default {
           title: `click to reveal object content (keys: ${Object.keys(this.ordered).join(', ')})`
         },
         domProps: {
-          innerHTML: '...'
+          innerText: '...'
         }
       }))
     }
@@ -136,7 +136,7 @@ export default {
         'jv-object': true,
       },
       domProps: {
-        innerHTML: '}'
+        innerText: '}'
       }
     }))
 

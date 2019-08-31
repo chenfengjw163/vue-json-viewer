@@ -15,7 +15,7 @@ export default {
         'jv-undefined': true,
       },
       domProps: {
-        innerHTML: props.jsonValue === null ? 'null' : 'undefined'
+        innerText: props.jsonValue === null ? 'null' : 'undefined'
       }
     })
   }

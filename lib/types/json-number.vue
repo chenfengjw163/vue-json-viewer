@@ -15,7 +15,7 @@ export default {
         'jv-number': true,
       },
       domProps: {
-        innerHTML: props.jsonValue.toString()
+        innerText: props.jsonValue.toString()
       }
     })
   }

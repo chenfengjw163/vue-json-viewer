@@ -66,8 +66,9 @@ export default {
     } else if (typeof this.value === 'function') {
       dataType = JsonFunction
     }
+    const toggle = this.keyName && (this.value && (Array.isArray(this.value) || typeof this.value === 'object'))
 
-    if (this.keyName && (this.value && (Array.isArray(this.value) || typeof this.value === 'object'))) {
+    if (toggle) {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
@@ -85,7 +86,7 @@ export default {
           'jv-key': true
         },
         domProps: {
-          innerHTML: `${this.keyName}:`
+          innerText: `${this.keyName}:`
         }
       }))
     }
@@ -110,7 +111,8 @@ export default {
 
     return h('div', {
       class: { 
-        'jv-node': true
+        'jv-node': true,
+        'toggle': toggle
       }
     }, elements)
   }
@@ -128,6 +130,10 @@ export default {
     &:after {
       content: ''
     }
+  }
+
+  &.toggle {
+    margin-left: 13px !important;
   }
 
   & .jv-node {

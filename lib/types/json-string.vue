@@ -12,9 +12,18 @@ export default {
   },
   render (h, { props }) {
     let value = props.jsonValue;
+    const islink = REG_LINK.test(value)
+    let domProps
     
-    if (REG_LINK.test(value)) {
+    if (islink) {
       value = `<a href="${value}" target="_blank" style="color: #0366d6;">${value}</a>`;
+      domProps = {
+        innerHTML: `"${value.toString()}"`
+      }
+    } else {
+      domProps = {
+        innerText: `"${value.toString()}"`
+      }
     }
 
     return h('span', {
@@ -23,7 +32,7 @@ export default {
         'jv-string': true,
       },
       domProps: {
-        innerHTML: `"${value.toString()}"`
+        ...domProps
       }
     })
   }

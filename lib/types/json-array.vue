@@ -91,7 +91,7 @@ export default {
         'jv-array': true,
       },
       domProps: {
-        innerHTML: '['
+        innerText: '['
       }
     }))
     this.ordered.forEach((value, key) => {
@@ -124,7 +124,7 @@ export default {
           title: `click to reveal ${this.value.length} hidden items`
         },
         domProps: {
-          innerHTML: '...'
+          innerText: '...'
         }
       }))
     }
@@ -135,7 +135,7 @@ export default {
         'jv-array': true,
       },
       domProps: {
-        innerHTML: ']'
+        innerText: ']'
       }
     }))
 
