@@ -94,20 +94,22 @@ export default {
         innerText: '['
       }
     }))
-    this.ordered.forEach((value, key) => {
-      elements.push(h(JsonBox, {
-        key,
-        style: {
-          display: this.expand ? undefined : 'none'
-        },
-        props: {
-          sort: this.sort,
-          // keyName: key,
-          depth: this.depth + 1,
-          value,
-        }
-      }))
-    })
+    if (this.expand) {
+      this.ordered.forEach((value, key) => {
+        elements.push(h(JsonBox, {
+          key,
+          style: {
+            display: this.expand ? undefined : 'none'
+          },
+          props: {
+            sort: this.sort,
+            // keyName: key,
+            depth: this.depth + 1,
+            value,
+          }
+        }))
+      })
+    }
 
     if (!this.expand && this.value.length) {
       elements.push(h('span', {

@@ -91,22 +91,24 @@ export default {
       }
     }))
 
-    for (let key in this.ordered) {
-      if (this.ordered.hasOwnProperty(key)) {
-        let value = this.ordered[key]
+    if (this.expand) {
+      for (let key in this.ordered) {
+        if (this.ordered.hasOwnProperty(key)) {
+          let value = this.ordered[key]
 
-        elements.push(h(JsonBox, {
-          key,
-          style: {
-            display: !this.expand ? 'none' : undefined
-          },
-          props: {
-            sort: this.sort,
-            keyName: key,
-            depth: this.depth + 1,
-            value,
-          }
-        }))
+          elements.push(h(JsonBox, {
+            key,
+            style: {
+              display: !this.expand ? 'none' : undefined
+            },
+            props: {
+              sort: this.sort,
+              keyName: key,
+              depth: this.depth + 1,
+              value,
+            }
+          }))
+        }
       }
     }
 
