@@ -49,9 +49,8 @@ export default {
         this.value = [];
       }
       setTimeout(() => {
-        this.value.push(vals[index]);
-
-        if (this.value.length < vals.length) {
+        if (vals.length > index) {
+          this.value.push(vals[index]);
           this.setValue(vals, index + 1);
         }
       }, 0);
