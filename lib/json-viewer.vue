@@ -123,6 +123,7 @@ export default {
     },
     debResized() {
       this.$nextTick(() => {
+        if (!this.$refs.jsonBox) return;
         if (this.$refs.jsonBox.$el.clientHeight >= 250) {
           this.expandableCode = true
         } else {
