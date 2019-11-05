@@ -45,7 +45,7 @@
       "email": "sacha.stafyniak@gmail.com"
     }
   ],
-  "dependencies": {
+  "peerDependencies": {
     "clipboard": "^2.0.4",
     "vue": "^2.6.9"
   },
