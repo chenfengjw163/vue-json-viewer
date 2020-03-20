@@ -13,6 +13,8 @@ Support for incremental update components
 - [Installing](#installing)
 - [Example](#example)
 - [Options](#options)
+- [Listeners](#listeners)
+- [Slots](#slots)
 - [Theming](#theming)
 
 ## Installing
