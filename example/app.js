@@ -6,6 +6,15 @@ Vue.use(JsonViewer)
 new Vue({
   el: '#app',
   render() {
+    const scopedSlots = {
+      copy: ({ copied }) => {
+        if (copied) return <button disabled>Copied!</button>
+        return <button>Copy me!</button>
+      },
+    }
+    const onCopied = (copyEvent) => {
+      alert(`Text successfully copied!\n${copyEvent.text}`);
+    }
     return (
       <div>
         <json-viewer value={this.jsonData}></json-viewer>
@@ -19,6 +28,15 @@ new Vue({
           }}
           boxed
           sort></json-viewer>
+        <hr />
+        <json-viewer
+          value={this.jsonData}
+          expand-depth={1}
+          copyable={{
+            timeout: 4000
+          }}
+          scopedSlots={scopedSlots}
+          onCopied={onCopied}></json-viewer>
       </div>
     )
   },

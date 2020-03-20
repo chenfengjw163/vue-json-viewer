@@ -8,7 +8,14 @@
         ref="clip" 
         class="jv-button"
         :class="{copied}"
-      >{{ copied ? copyText.copiedText : copyText.copyText }}</span>
+      >
+        <slot
+          name="copy"
+          :copied="copied"
+        >
+          {{ copied ? copyText.copiedText : copyText.copyText }}
+        </slot>
+      </span>
     </div>
     <div 
       class="jv-code" 
@@ -92,11 +99,12 @@ export default {
       return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
     },
     copyText() {
-      const { copyText, copiedText } = this.copyable
+      const { copyText, copiedText, timeout } = this.copyable
 
       return {
         copyText: copyText || 'copy',
-        copiedText: copiedText || 'copied!'
+        copiedText: copiedText || 'copied!',
+        timeout: timeout || 2000
       }
     }
   },
@@ -112,8 +120,8 @@ export default {
           return JSON.stringify(this.value, null, 2)
         }
       });
-      clipBoard.on('success', () => {
-        this.onCopied()
+      clipBoard.on('success', (e) => {
+        this.onCopied(e)
       })
     }
   },
@@ -131,15 +139,15 @@ export default {
         }
       })
     },
-    onCopied() {
+    onCopied(copyEvent) {
       if (this.copied) {
         return;
       }
       this.copied = true
       setTimeout(() => {
         this.copied = false
-      }, 2000)
-      this.$emit('copied')
+      }, this.copyText.timeout)
+      this.$emit('copied', copyEvent)
     },
     toggleExpandCode () {
       this.expandCode = !this.expandCode
