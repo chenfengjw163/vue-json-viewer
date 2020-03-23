@@ -266,6 +266,10 @@ export default {
     margin-right: 2px;
     display: inline-block;
     transition: transform 0.1s;
+
+    &.open {
+      transform: rotate(90deg)
+    }
   }
 
   .jv-more {
