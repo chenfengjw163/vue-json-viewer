@@ -1,6 +1,6 @@
 {
   "name": "vue-json-viewer",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "description": "vuejs展示json的组件",
   "main": "vue-json-viewer.js",
   "files": [
@@ -78,8 +78,8 @@
     "vue-template-compiler": "^2.6.9",
     "webpack": "=4.29.6",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "3.1.11",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.1.0"
   }
 }
