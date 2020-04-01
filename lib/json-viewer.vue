@@ -56,6 +56,10 @@ export default {
       type: [Object, Array, String, Number, Boolean, Function],
       required: true
     },
+    expanded: {
+      type: Boolean,
+      default: false
+    },
     expandDepth: {
       type: Number,
       default: 1
@@ -86,7 +90,7 @@ export default {
     return {
       copied: false,
       expandableCode: false,
-      expandCode: false
+      expandCode: this.expanded
     }
   },
   watch: {
