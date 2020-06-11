@@ -24,17 +24,6 @@ export default {
     sort: Boolean,
     expand: Boolean
   },
-  computed: {
-    ordered () {
-      let value = this.value
-
-      if (!this.sort) {
-        return value
-      }
-
-      return value.sort()
-    }
-  },
   watch: {
     jsonValue(newVal) {
       this.setValue(newVal);
@@ -94,7 +83,7 @@ export default {
       }
     }))
     if (this.expand) {
-      this.ordered.forEach((value, key) => {
+      this.value.forEach((value, key) => {
         elements.push(h(JsonBox, {
           key,
           style: {
