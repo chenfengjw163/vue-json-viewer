@@ -6,13 +6,14 @@ import JsonBoolean from './types/json-boolean'
 import JsonObject from './types/json-object'
 import JsonArray from './types/json-array'
 import JsonFunction from './types/json-function'
+import JsonDate from './types/json-date'
 
 export default {
   name: 'JsonBox',
   inject: ['expandDepth'],
   props: {
     value: {
-      type: [Object, Array, String, Number, Boolean, Function],
+      type: [Object, Array, String, Number, Boolean, Function, Date],
       default: null
     },
     keyName: {
@@ -55,6 +56,8 @@ export default {
       dataType = JsonUndefined
     } else if (Array.isArray(this.value)) {
       dataType = JsonArray
+    } else if (Object.prototype.toString.call(this.value) === '[object Date]') {
+      dataType = JsonDate
     } else if (typeof this.value === 'object') {
       dataType = JsonObject
     } else if (typeof this.value === 'number') {
@@ -66,7 +69,7 @@ export default {
     } else if (typeof this.value === 'function') {
       dataType = JsonFunction
     }
-    const toggle = this.keyName && (this.value && (Array.isArray(this.value) || typeof this.value === 'object'))
+    const toggle = this.keyName && (this.value && (Array.isArray(this.value) || (typeof this.value === 'object' && Object.prototype.toString.call(this.value) !== '[object Date]')))
 
     if (toggle) {
       elements.push(h('span', {
@@ -110,7 +113,7 @@ export default {
     }))
 
     return h('div', {
-      class: { 
+      class: {
         'jv-node': true,
         'toggle': toggle
       }
