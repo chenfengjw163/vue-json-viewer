@@ -71,8 +71,8 @@ new Vue({
             the Analytical Engine. She was the first to recognise that the machine had applications beyond pure calculation,
             and published the first algorithm intended to be carried out by such a machine.
             As a result, she is sometimes regarded as the first to recognise the full potential of a "computing machine" and the first computer programmer.`,
-            bornAt: '1815-12-10T00:00:00.000Z',
-            diedAt: '1852-11-27T00:00:00.000Z'
+            bornAt: new Date('1815-12-10T00:00:00.000Z'),
+            diedAt: new Date('1852-11-27T00:00:00.000Z')
           }, {
             id: '5968fcad629fa84ab65a5246',
             firstname: 'Grace',
@@ -99,8 +99,8 @@ new Vue({
             she was a pioneer of computer programming who invented one of the first compiler related tools.
             She popularized the idea of machine-independent programming languages, which led to the development of COBOL,
             an early high-level programming language still in use today.`,
-            bornAt: '1815-12-10T00:00:00.000Z',
-            diedAt: '1852-11-27T00:00:00.000Z'
+            bornAt: new Date('1815-12-10T00:00:00.000Z'),
+            diedAt: new Date('1852-11-27T00:00:00.000Z')
           }
         ]
       }
