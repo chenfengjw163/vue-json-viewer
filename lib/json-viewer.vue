@@ -80,10 +80,15 @@ export default {
       type: String,
       default: 'jv-light'
     },
+    timeformat: {
+      type: Function,
+      default: value => value.toLocaleString(),
+    }
   },
   provide () {
     return {
       expandDepth: this.expandDepth,
+      timeformat: this.timeformat,
     }
   },
   data () {
@@ -91,11 +96,6 @@ export default {
       copied: false,
       expandableCode: false,
       expandCode: this.expanded
-    }
-  },
-  watch: {
-    value() {
-      this.onResized()
     }
   },
   computed: {
@@ -110,6 +110,11 @@ export default {
         copiedText: copiedText || 'copied!',
         timeout: timeout || 2000
       }
+    }
+  },
+  watch: {
+    value() {
+      this.onResized()
     }
   },
   mounted: function () {

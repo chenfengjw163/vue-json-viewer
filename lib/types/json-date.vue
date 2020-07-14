@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'JsonDate',
+  inject: ['timeformat'],
   functional: true,
   props: {
     jsonValue: {
@@ -8,8 +9,9 @@ export default {
       required: true
     }
   },
-  render (h, { props }) {
+  render (h, { props, injections }) {
     const value = props.jsonValue;
+    const timeformat = injections.timeformat;
 
     return h('span', {
       class: {
@@ -17,7 +19,7 @@ export default {
         'jv-string': true,
       },
       domProps: {
-        innerText: `"${value.toLocaleString()}"`
+        innerText: `"${timeformat(value)}"`
       }
     })
   }

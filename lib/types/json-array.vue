@@ -3,11 +3,6 @@ import JsonBox from '../json-box'
 
 export default {
   name: 'JsonArray',
-  data() {
-    return {
-      value: []
-    }
-  },
   props: {
     jsonValue: {
       type: Array,
@@ -23,6 +18,11 @@ export default {
     },
     sort: Boolean,
     expand: Boolean
+  },
+  data() {
+    return {
+      value: []
+    }
   },
   watch: {
     jsonValue(newVal) {

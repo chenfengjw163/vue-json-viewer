@@ -152,6 +152,7 @@ import 'vue-json-viewer/style.css'
 | `boxed` | Add a fancy "boxed" style to component | `false` |
 | `theme` | Add a custom CSS class for theming purposes | `jv-light` |
 | `expanded` | Default expand the view | `false` |
+| `timeformat` | custom time format function | time => time.toLocaleString() |
 
 ## Listeners
 

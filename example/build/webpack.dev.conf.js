@@ -11,7 +11,7 @@ module.exports = {
     },
     devtool: 'cheap-module-source-map',
     devServer: {
-        port: 8081,
+        port: 8082,
         disableHostCheck: true
     },
     resolve: {

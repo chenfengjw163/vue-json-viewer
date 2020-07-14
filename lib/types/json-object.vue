@@ -3,11 +3,6 @@ import JsonBox from '../json-box'
 
 export default {
   name: 'JsonObject',
-  data() {
-    return {
-      value: {}
-    }
-  },
   props: {
     jsonValue: {
       type: Object,
@@ -23,6 +18,11 @@ export default {
     },
     expand: Boolean,
     sort: Boolean
+  },
+  data() {
+    return {
+      value: {}
+    }
   },
   computed: {
     ordered () {

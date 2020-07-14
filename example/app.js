@@ -27,6 +27,7 @@ new Vue({
             copiedText: '复制成功'
           }}
           boxed
+          timeformat={time => new Date(time)}
           sort></json-viewer>
         <hr />
         <json-viewer

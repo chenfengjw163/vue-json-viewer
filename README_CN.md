@@ -145,6 +145,8 @@ import 'vue-json-viewer/style.css'
 | `sort` | 按照key排序展示 | `false` |
 | `boxed` | 为组件添加一个盒样式 | `false` |
 | `theme` | 添加一个自定义的样式class用作主题 | `jv-light` |
+| `expanded` | 默认展开视图 | `false` |
+| `timeformat` | 自定义时间格式函数 | time => time.toLocaleString() |
 
 ## 主题
 
