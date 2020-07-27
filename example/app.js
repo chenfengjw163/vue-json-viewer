@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import JsonViewer from '../lib'
+import './app.css'
 
 Vue.use(JsonViewer)
 
@@ -47,6 +48,7 @@ new Vue({
         total: 25,
         limit: 10,
         skip: 0,
+        numbers: 10.11,
         success: true,
         links: {
           previous: undefined,
