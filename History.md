@@ -1,3 +1,7 @@
+## 2.2.14 2020-10-13
+
+- Add Preview Mode 
+
 ## 2.2.14 2020-07-27
 
 - Allow add specific style for float and integer numbers [pr](https://github.com/chenfengjw163/vue-json-viewer/pull/51)

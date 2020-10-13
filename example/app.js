@@ -18,6 +18,17 @@ new Vue({
     }
     return (
       <div>
+        <json-viewer
+          preview-mode
+          value={{
+            data: {
+              data: {
+                data: {
+                  a: 1
+                }
+              }
+            }
+          }}></json-viewer>
         <json-viewer value={this.jsonData}></json-viewer>
         <hr />
         <json-viewer

@@ -24,7 +24,8 @@ export default {
     depth: {
       type: Number,
       default: 0
-    }
+    },
+    previewMode: Boolean,
   },
   data() {
     return {
@@ -32,7 +33,7 @@ export default {
     }
   },
   mounted() {
-    this.expand = this.depth >= this.expandDepth ? false : true
+    this.expand = this.previewMode || (this.depth >= this.expandDepth ? false : true)
   },
   methods: {
     toggle() {
@@ -71,7 +72,7 @@ export default {
     }
     const toggle = this.keyName && (this.value && (Array.isArray(this.value) || (typeof this.value === 'object' && Object.prototype.toString.call(this.value) !== '[object Date]')))
 
-    if (toggle) {
+    if (!this.previewMode && toggle) {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
@@ -103,7 +104,8 @@ export default {
         keyName: this.keyName,
         sort: this.sort,
         depth: this.depth,
-        expand: this.expand
+        expand: this.expand,
+        previewMode: this.previewMode,
       },
       on: {
         'update:expand': value => {
@@ -115,7 +117,7 @@ export default {
     return h('div', {
       class: {
         'jv-node': true,
-        'toggle': toggle
+        'toggle': !this.previewMode && toggle
       }
     }, elements)
   }

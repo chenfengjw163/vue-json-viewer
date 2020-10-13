@@ -17,7 +17,8 @@ export default {
       default: 0
     },
     sort: Boolean,
-    expand: Boolean
+    expand: Boolean,
+    previewMode: Boolean,
   },
   data() {
     return {
@@ -61,7 +62,7 @@ export default {
   render (h) {
     let elements = []
 
-    if (!this.keyName) {
+    if (!this.previewMode && !this.keyName) {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
@@ -94,6 +95,7 @@ export default {
             // keyName: key,
             depth: this.depth + 1,
             value,
+            previewMode: this.previewMode,
           }
         }))
       })

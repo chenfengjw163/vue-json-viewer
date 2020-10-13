@@ -147,6 +147,7 @@ import 'vue-json-viewer/style.css'
 | `theme` | 添加一个自定义的样式class用作主题 | `jv-light` |
 | `expanded` | 默认展开视图 | `false` |
 | `timeformat` | 自定义时间格式函数 | time => time.toLocaleString() |
+| `preview-mode` | 不可折叠模式，默认全部展开 | `false` |
 
 ## 主题
 

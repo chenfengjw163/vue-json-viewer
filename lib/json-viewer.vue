@@ -25,6 +25,7 @@
         ref="jsonBox"
         :value="value"
         :sort="sort"
+        :preview-mode="previewMode"
       />
     </div>
     <div 
@@ -83,6 +84,10 @@ export default {
     timeformat: {
       type: Function,
       default: value => value.toLocaleString(),
+    },
+    previewMode: {
+      type: Boolean,
+      default: false,
     }
   },
   provide () {

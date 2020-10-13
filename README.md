@@ -153,6 +153,7 @@ import 'vue-json-viewer/style.css'
 | `theme` | Add a custom CSS class for theming purposes | `jv-light` |
 | `expanded` | Default expand the view | `false` |
 | `timeformat` | custom time format function | time => time.toLocaleString() |
+| `preview-mode` | no expand mode | `false` |
 
 ## Listeners
 
