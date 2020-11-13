@@ -1,4 +1,8 @@
-## 2.2.14 2020-10-13
+## 2.2.16 2020-11-13
+
+- support long string expand [issues](https://github.com/chenfengjw163/vue-json-viewer/issues/60)
+
+## 2.2.15 2020-10-13
 
 - Add Preview Mode 
 
