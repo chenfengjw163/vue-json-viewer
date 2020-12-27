@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      expand: false,
+      expand: true,
       canExtend: false,
     }
   },
@@ -30,7 +30,7 @@ export default {
     const islink = REG_LINK.test(value)
     let domItem
 
-    if (this.expand) {
+    if (!this.expand) {
       domItem = {
         class: {
           'jv-ellipsis': true,
