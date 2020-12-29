@@ -1,3 +1,7 @@
+## 2.2.17 2020-12-29
+
+- fix: long string expand arrow display error  [pr](https://github.com/chenfengjw163/vue-json-viewer/pull/62)
+
 ## 2.2.16 2020-11-13
 
 - support long string expand [issues](https://github.com/chenfengjw163/vue-json-viewer/issues/60)
