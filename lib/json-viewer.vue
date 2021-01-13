@@ -2,7 +2,7 @@
   <div :class="jvClass">
     <div 
       v-if="copyable"
-      class="jv-tooltip"
+      :class="`jv-tooltip ${copyText.align || 'right'}`"
     >
       <span  
         ref="clip" 
@@ -108,12 +108,13 @@ export default {
       return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
     },
     copyText() {
-      const { copyText, copiedText, timeout } = this.copyable
+      const { copyText, copiedText, timeout, align } = this.copyable
 
       return {
         copyText: copyText || 'copy',
         copiedText: copiedText || 'copied!',
-        timeout: timeout || 2000
+        timeout: timeout || 2000,
+        align,
       }
     }
   },
@@ -236,6 +237,10 @@ export default {
         color: #42b983;
         word-break: break-word;
         white-space: normal;
+
+        .jv-link {
+          color: #0366d6;
+        }
       }
     }
     .jv-code {
@@ -255,7 +260,7 @@ export default {
 
   .jv-code {
     overflow: hidden;
-    padding: 20px;
+    padding: 30px 20px;
 
     &.boxed {
       max-height: 300px;
@@ -357,8 +362,13 @@ export default {
 
   .jv-tooltip {
     position: absolute;
-    right: 15px;
-    top: 10px;
+
+    &.right {
+      right: 15px;
+    }
+    &.left {
+      left: 15px;
+    }
   }
 
   .j-icon {

@@ -36,7 +36,8 @@ new Vue({
           expand-depth={5}
           copyable={{
             copyText: '复制',
-            copiedText: '复制成功'
+            copiedText: '复制成功',
+            align: 'left'
           }}
           boxed
           timeformat={time => new Date(time)}
@@ -46,7 +47,8 @@ new Vue({
           value={this.jsonData}
           expand-depth={1}
           copyable={{
-            timeout: 4000
+            timeout: 4000,
+            align: 'left'
           }}
           scopedSlots={scopedSlots}
           onCopied={onCopied}></json-viewer>

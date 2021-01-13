@@ -70,9 +70,9 @@ export default {
     } else if (typeof this.value === 'function') {
       dataType = JsonFunction
     }
-    const toggle = this.keyName && (this.value && (Array.isArray(this.value) || (typeof this.value === 'object' && Object.prototype.toString.call(this.value) !== '[object Date]')))
+    const complex = this.keyName && (this.value && (Array.isArray(this.value) || (typeof this.value === 'object' && Object.prototype.toString.call(this.value) !== '[object Date]')))
 
-    if (!this.previewMode && toggle) {
+    if (!this.previewMode && complex) {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
@@ -117,7 +117,8 @@ export default {
     return h('div', {
       class: {
         'jv-node': true,
-        'toggle': !this.previewMode && toggle
+        'jv-key-node': Boolean(this.keyName) && !complex,
+        'toggle': !this.previewMode && complex
       }
     }, elements)
   }

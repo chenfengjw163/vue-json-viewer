@@ -51,7 +51,7 @@ export default {
         ref: 'itemRef',
       }
       if (islink) {
-        value = `<a href="${value}" target="_blank" style="color: #0366d6;">${value}</a>`;
+        value = `<a href="${value}" target="_blank" class="jv-link">${value}</a>`;
         domItem.domProps = {
           innerHTML: `"${value.toString()}"`
         }
