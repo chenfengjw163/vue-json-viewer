@@ -1,5 +1,5 @@
 <template>
-  <div :class="jvClass">
+  <div ref="viewer" :class="jvClass">
     <div 
       v-if="copyable"
       :class="`jv-tooltip ${copyText.align || 'right'}`"
@@ -131,6 +131,7 @@ export default {
     }
     if (this.copyable) {
       const clipBoard = new Clipboard(this.$refs.clip, {
+        container: this.$refs.viewer,
         text: () => {
           return JSON.stringify(this.value, null, 2)
         }
