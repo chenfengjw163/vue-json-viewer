@@ -1,11 +1,11 @@
 <template>
   <div ref="viewer" :class="jvClass">
-    <div 
+    <div
       v-if="copyable"
       :class="`jv-tooltip ${copyText.align || 'right'}`"
     >
-      <span  
-        ref="clip" 
+      <span
+        ref="clip"
         class="jv-button"
         :class="{copied}"
       >
@@ -17,8 +17,8 @@
         </slot>
       </span>
     </div>
-    <div 
-      class="jv-code" 
+    <div
+      class="jv-code"
       :class="{'open': expandCode, boxed}"
     >
       <json-box
@@ -28,13 +28,13 @@
         :preview-mode="previewMode"
       />
     </div>
-    <div 
-      v-if="expandableCode && boxed" 
-      class="jv-more" 
+    <div
+      v-if="expandableCode && boxed"
+      class="jv-more"
       @click="toggleExpandCode"
     >
-      <span 
-        class="jv-toggle" 
+      <span
+        class="jv-toggle"
         :class="{open: !!expandCode}"
       />
     </div>
@@ -334,7 +334,7 @@ export default {
 
     &:hover {
       .jv-toggle {
-        top: 50%; 
+        top: 50%;
         color: #111;
       }
 
