@@ -1,19 +1,19 @@
 <script>
+import { h } from 'vue'
+
 export default {
   name: 'JsonBoolean',
   functional: true,
   props: {
     jsonValue: Boolean
   },
-  render (h, { props }) {
+  render () {
     return h('span', {
       class: {
         'jv-item': true,
         'jv-boolean': true,
       },
-      domProps: {
-        innerText: props.jsonValue.toString()
-      }
+      innerText: this.jsonValue.toString()
     })
   }
 }

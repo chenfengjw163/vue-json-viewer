@@ -1,4 +1,5 @@
 <script>
+import { h } from 'vue'
 import JsonBox from '../json-box'
 
 export default {
@@ -57,9 +58,9 @@ export default {
         this.$el.dispatchEvent(evt)
       }
     },
-    
+
   },
-  render (h) {
+  render () {
     let elements = []
 
     if (!this.previewMode && !this.keyName) {
@@ -68,9 +69,7 @@ export default {
           'jv-toggle': true,
           'open': !!this.expand,
         },
-        on: {
-          click: this.toggle
-        }
+        onClick: this.toggle
       }))
     }
 
@@ -79,9 +78,7 @@ export default {
         'jv-item': true,
         'jv-array': true,
       },
-      domProps: {
-        innerText: '['
-      }
+      innerText: '['
     }))
     if (this.expand) {
       this.value.forEach((value, key) => {
@@ -90,13 +87,11 @@ export default {
           style: {
             display: this.expand ? undefined : 'none'
           },
-          props: {
-            sort: this.sort,
-            // keyName: key,
-            depth: this.depth + 1,
-            value,
-            previewMode: this.previewMode,
-          }
+          sort: this.sort,
+          // keyName: key,
+          depth: this.depth + 1,
+          value,
+          previewMode: this.previewMode,
         }))
       })
     }
@@ -109,15 +104,9 @@ export default {
         class: {
           'jv-ellipsis': true,
         },
-        on: {
-          click: this.toggle
-        },
-        attrs: {
-          title: `click to reveal ${this.value.length} hidden items`
-        },
-        domProps: {
-          innerText: '...'
-        }
+        onClick: this.toggle,
+        title: `click to reveal ${this.value.length} hidden items`,
+        innerText: '...'
       }))
     }
 
@@ -126,9 +115,7 @@ export default {
         'jv-item': true,
         'jv-array': true,
       },
-      domProps: {
-        innerText: ']'
-      }
+      innerText: ']'
     }))
 
     return h('span', elements)
