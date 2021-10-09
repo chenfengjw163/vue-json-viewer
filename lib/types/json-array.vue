@@ -92,7 +92,7 @@ export default {
           },
           props: {
             sort: this.sort,
-            // keyName: key,
+            keyName: `${key}`,
             depth: this.depth + 1,
             value,
             previewMode: this.previewMode,
