@@ -47,6 +47,17 @@ export default {
         evt.initEvent('resized', true, false)
         this.$el.dispatchEvent(evt)
       }
+    },
+    getPath() {
+      const path = [this.keyName];
+      let p = this.$parent;
+      while(p.depth) {
+        if (p.$el.classList.contains('jv-node')) {
+          path.push(p.keyName);
+        }
+        p = p.$parent;
+      }
+      return path.reverse()
     }
   },
   render (h) {
