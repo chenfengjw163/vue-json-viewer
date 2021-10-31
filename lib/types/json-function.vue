@@ -1,4 +1,6 @@
 <script>
+import { h } from 'vue'
+
 export default {
   name: 'JsonFunction',
   functional: true,
@@ -8,18 +10,16 @@ export default {
       required: true
     }
   },
-  render (h, { props }) {
+  render () {
     return h('span', {
       class: {
         'jv-item': true,
         'jv-function': true,
       },
       attrs: {
-        title: props.jsonValue.toString()
+        title: this.jsonValue.toString()
       },
-      domProps: {
-        innerHTML: '&lt;function&gt;'
-      }
+      innerHTML: '&lt;function&gt;'
     })
   }
 }

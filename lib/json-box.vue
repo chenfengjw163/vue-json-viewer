@@ -1,4 +1,5 @@
 <script>
+import { h } from 'vue'
 import JsonString from './types/json-string'
 import JsonUndefined from './types/json-undefined'
 import JsonNumber from './types/json-number'
@@ -60,7 +61,7 @@ export default {
       return path.reverse()
     }
   },
-  render (h) {
+  render () {
     let elements = []
     let dataType
 
@@ -89,9 +90,7 @@ export default {
           'jv-toggle': true,
           open: !!this.expand
         },
-        on: {
-          click: this.toggle
-        }
+        onClick: this.toggle
       }))
     }
 
@@ -100,9 +99,7 @@ export default {
         class: {
           'jv-key': true
         },
-        domProps: {
-          innerText: `${this.keyName}:`
-        }
+        innerText: `${this.keyName}:`
       }))
     }
 
@@ -110,18 +107,14 @@ export default {
       class: {
         'jv-push': true
       },
-      props: {
-        jsonValue: this.value,
-        keyName: this.keyName,
-        sort: this.sort,
-        depth: this.depth,
-        expand: this.expand,
-        previewMode: this.previewMode,
-      },
-      on: {
-        'update:expand': value => {
-          this.expand = value
-        }
+      jsonValue: this.value,
+      keyName: this.keyName,
+      sort: this.sort,
+      depth: this.depth,
+      expand: this.expand,
+      previewMode: this.previewMode,
+      'onUpdate:expand': value => {
+        this.expand = value
       }
     }))
 
