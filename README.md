@@ -2,7 +2,7 @@
 
 [中文版](https://github.com/chenfengjw163/vue-json-viewer/blob/master/README_CN.md)
 
-Simple JSON viewer component, for Vue.js 2.
+Simple JSON viewer component, for Vue.js 2 or 3.
 
 Support for incremental update components
 
@@ -20,12 +20,18 @@ Support for incremental update components
 ## Installing
 Using npm:
 ```
-$ npm install vue-json-viewer --save
+$ npm install vue-json-viewer@2 --save
+// Vue2
+$ npm install vue-json-viewer@3 --save
+// Vue3
 ```
 
 Using yarn:
 ```
-$ yarn add vue-json-viewer
+$ yarn add vue-json-viewer@2 
+// Vue2
+$ yarn add vue-json-viewer@3 
+// Vue3
 ```
 
 ## Example
