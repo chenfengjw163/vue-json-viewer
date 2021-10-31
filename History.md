@@ -1,3 +1,9 @@
+## 2.2.20 2021-10-31
+
+- 给box加getPath方法  [pr](https://github.com/chenfengjw163/vue-json-viewer/pull/79)
+- chore: move "vue" to "peerDependencies" [pr](https://github.com/chenfengjw163/vue-json-viewer/pull/75)
+
+
 ## 2.2.17 2020-12-29
 
 - fix: issues  [issues](https://github.com/chenfengjw163/vue-json-viewer/issues/64)
