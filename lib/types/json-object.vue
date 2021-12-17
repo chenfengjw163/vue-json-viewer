@@ -17,6 +17,7 @@ export default {
       default: 0
     },
     expand: Boolean,
+    forceExpand: Boolean,
     sort: Boolean,
     previewMode: Boolean,
   },
@@ -56,6 +57,10 @@ export default {
       this.$emit('update:expand', !this.expand)
       this.dispatchEvent();
     },
+    toggleAll() {
+      this.$emit('update:expandAll', !this.expand)
+      this.dispatchEvent();
+    },
     dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
@@ -77,7 +82,13 @@ export default {
           'open': !!this.expand,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         }
       }))
     }
@@ -99,15 +110,13 @@ export default {
 
           elements.push(h(JsonBox, {
             key,
-            style: {
-              display: !this.expand ? 'none' : undefined
-            },
             props: {
               sort: this.sort,
               keyName: key,
               depth: this.depth + 1,
               value,
               previewMode: this.previewMode,
+              forceExpand: this.forceExpand,
             }
           }))
         }
@@ -116,14 +125,17 @@ export default {
 
     if (!this.expand && Object.keys(this.value).length) {
       elements.push(h('span', {
-        style: {
-          display: this.expand ? 'none' : undefined
-        },
         class: {
           'jv-ellipsis': true,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         },
         attrs: {
           title: `click to reveal object content (keys: ${Object.keys(this.ordered).join(', ')})`

@@ -1,5 +1,8 @@
 <template>
-  <div ref="viewer" :class="jvClass">
+  <div
+    ref="viewer"
+    :class="jvClass"
+  >
     <div 
       v-if="copyable"
       :class="`jv-tooltip ${copyText.align || 'right'}`"
