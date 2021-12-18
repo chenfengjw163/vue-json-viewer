@@ -27,6 +27,7 @@ export default {
     },
     previewMode: Boolean,
     forceExpand: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
@@ -134,7 +135,8 @@ export default {
         depth: this.depth,
         expand: this.expand,
         previewMode: this.previewMode,
-        forceExpand: this.forceExpandMe
+        forceExpand: this.forceExpandMe,
+        showArrayIndex: this.showArrayIndex,
       },
       on: {
         'update:expand': value => {

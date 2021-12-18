@@ -20,6 +20,7 @@ export default {
     expand: Boolean,
     forceExpand: Boolean,
     previewMode: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
@@ -101,11 +102,12 @@ export default {
           key,
           props: {
             sort: this.sort,
-            keyName: `${key}`,
+            keyName: this.showArrayIndex ? `${key}`: '',
             depth: this.depth + 1,
             value,
             previewMode: this.previewMode,
             forceExpand: this.forceExpand,
+            showArrayIndex: this.showArrayIndex,
           }
         }))
       })

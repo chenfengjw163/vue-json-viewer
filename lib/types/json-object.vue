@@ -20,6 +20,7 @@ export default {
     forceExpand: Boolean,
     sort: Boolean,
     previewMode: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
@@ -117,6 +118,7 @@ export default {
               value,
               previewMode: this.previewMode,
               forceExpand: this.forceExpand,
+              showArrayIndex: this.showArrayIndex,
             }
           }))
         }

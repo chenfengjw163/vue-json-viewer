@@ -29,6 +29,7 @@
         :value="value"
         :sort="sort"
         :preview-mode="previewMode"
+        :show-array-index="showArrayIndex"
       />
     </div>
     <div 
@@ -91,6 +92,10 @@ export default {
     previewMode: {
       type: Boolean,
       default: false,
+    },
+    showArrayIndex: {
+      type: Boolean,
+      default: true,
     }
   },
   provide () {
