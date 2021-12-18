@@ -26,19 +26,31 @@ export default {
       default: 0
     },
     previewMode: Boolean,
+    forceExpand: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
-      expand: true
+      expand: true,
+      forceExpandMe: this.forceExpand,
     }
   },
   mounted() {
-    this.expand = this.previewMode || (this.depth >= this.expandDepth ? false : true)
+    this.expand = this.previewMode || (this.depth >= this.expandDepth ? false : true) || this.forceExpandMe
   },
   methods: {
     toggle() {
       this.expand = !this.expand
 
+      this.dispatchEvent()
+    },
+    toggleAll() {
+      this.expand = !this.expand
+      this.forceExpandMe = this.expand
+
+      this.dispatchEvent()
+    },
+    dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
@@ -64,7 +76,7 @@ export default {
     let elements = []
     let dataType
 
-    if (this.value === null || this.value === undefined) {
+    if (this.value === null || this.value === undefined) {
       dataType = JsonUndefined
     } else if (Array.isArray(this.value)) {
       dataType = JsonArray
@@ -90,7 +102,13 @@ export default {
           open: !!this.expand
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         }
       }))
     }
@@ -117,10 +135,16 @@ export default {
         depth: this.depth,
         expand: this.expand,
         previewMode: this.previewMode,
+        forceExpand: this.forceExpandMe,
+        showArrayIndex: this.showArrayIndex,
       },
       on: {
         'update:expand': value => {
           this.expand = value
+        },
+        'update:expandAll': value => {
+          this.expand = value
+          this.forceExpandMe = this.expand
         }
       }
     }))

@@ -18,7 +18,9 @@ export default {
     },
     sort: Boolean,
     expand: Boolean,
+    forceExpand: Boolean,
     previewMode: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
@@ -47,7 +49,13 @@ export default {
     },
     toggle() {
       this.$emit('update:expand', !this.expand)
-
+      this.dispatchEvent();
+    },
+    toggleAll() {
+      this.$emit('update:expandAll', !this.expand)
+      this.dispatchEvent();
+    },
+    dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
@@ -56,8 +64,7 @@ export default {
         evt.initEvent('resized', true, false)
         this.$el.dispatchEvent(evt)
       }
-    },
-    
+    }
   },
   render (h) {
     let elements = []
@@ -69,7 +76,13 @@ export default {
           'open': !!this.expand,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         }
       }))
     }
@@ -87,15 +100,14 @@ export default {
       this.value.forEach((value, key) => {
         elements.push(h(JsonBox, {
           key,
-          style: {
-            display: this.expand ? undefined : 'none'
-          },
           props: {
             sort: this.sort,
-            keyName: `${key}`,
+            keyName: this.showArrayIndex ? `${key}`: '',
             depth: this.depth + 1,
             value,
             previewMode: this.previewMode,
+            forceExpand: this.forceExpand,
+            showArrayIndex: this.showArrayIndex,
           }
         }))
       })
@@ -103,14 +115,17 @@ export default {
 
     if (!this.expand && this.value.length) {
       elements.push(h('span', {
-        style: {
-          display: undefined
-        },
         class: {
           'jv-ellipsis': true,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         },
         attrs: {
           title: `click to reveal ${this.value.length} hidden items`

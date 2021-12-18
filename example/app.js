@@ -40,6 +40,7 @@ new Vue({
             align: 'left'
           }}
           boxed
+          show-array-index={false}
           timeformat={time => new Date(time)}
           sort></json-viewer>
         <hr />
