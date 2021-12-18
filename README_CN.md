@@ -1,6 +1,6 @@
 # vue-json-viewer
 
-简单易用的json内容展示组件，支持vue@2.0+，支持SSR，组件支持增量渲染即使大文件json也可以快速渲染。
+简单易用的json内容展示组件，支持vue@2和3，支持SSR，组件支持增量渲染即使大文件json也可以快速渲染。
 
 [![Travis](https://img.shields.io/travis/chenfengjw163/vue-json-viewer/master.svg?style=flat-square)](https://travis-ci.org/chenfengjw163/vue-json-viewer)
 [![npm](https://img.shields.io/npm/v/vue-json-viewer.svg?style=flat-square)](https://www.npmjs.com/package/vue-json-viewer)
@@ -14,12 +14,18 @@
 ## 安装
 使用 npm:
 ```
-$ npm install vue-json-viewer --save
+$ npm install vue-json-viewer@2 --save
+// Vue2
+$ npm install vue-json-viewer@3 --save
+// Vue3
 ```
 
 使用 yarn:
 ```
-$ yarn add vue-json-viewer
+$ yarn add vue-json-viewer@2 
+// Vue2
+$ yarn add vue-json-viewer@3 
+// Vue3
 ```
 
 ## 示例

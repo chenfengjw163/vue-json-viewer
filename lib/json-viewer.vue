@@ -1,6 +1,9 @@
 <template>
-  <div ref="viewer" :class="jvClass">
-    <div
+  <div
+    ref="viewer"
+    :class="jvClass"
+  >
+    <div 
       v-if="copyable"
       :class="`jv-tooltip ${copyText.align || 'right'}`"
     >
@@ -26,6 +29,7 @@
         :value="value"
         :sort="sort"
         :preview-mode="previewMode"
+        :show-array-index="showArrayIndex"
       />
     </div>
     <div
@@ -88,6 +92,10 @@ export default {
     previewMode: {
       type: Boolean,
       default: false,
+    },
+    showArrayIndex: {
+      type: Boolean,
+      default: true,
     }
   },
   provide () {

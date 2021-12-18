@@ -19,7 +19,9 @@ export default {
     },
     sort: Boolean,
     expand: Boolean,
+    forceExpand: Boolean,
     previewMode: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
@@ -48,7 +50,13 @@ export default {
     },
     toggle() {
       this.$emit('update:expand', !this.expand)
-
+      this.dispatchEvent();
+    },
+    toggleAll() {
+      this.$emit('update:expandAll', !this.expand)
+      this.dispatchEvent();
+    },
+    dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
@@ -58,7 +66,6 @@ export default {
         this.$el.dispatchEvent(evt)
       }
     },
-
   },
   render () {
     let elements = []
@@ -69,7 +76,13 @@ export default {
           'jv-toggle': true,
           'open': !!this.expand,
         },
-        onClick: this.toggle
+        onClick: (event) => {
+          if (event.altKey) {
+            this.toggleAll()
+          } else {
+            this.toggle()
+          }
+        }
       }))
     }
 
@@ -88,23 +101,28 @@ export default {
             display: this.expand ? undefined : 'none'
           },
           sort: this.sort,
-          keyName: `${key}`,
+          keyName: this.showArrayIndex ? `${key}`: '',
           depth: this.depth + 1,
           value,
           previewMode: this.previewMode,
+          forceExpand: this.forceExpand,
+          showArrayIndex: this.showArrayIndex,
         }))
       })
     }
 
     if (!this.expand && this.value.length) {
       elements.push(h('span', {
-        style: {
-          display: undefined
-        },
         class: {
           'jv-ellipsis': true,
         },
-        onClick: this.toggle,
+        onClick: (event) => {
+          if (event.altKey) {
+            this.toggleAll()
+          } else {
+            this.toggle()
+          }
+        },
         title: `click to reveal ${this.value.length} hidden items`,
         innerText: '...'
       }))

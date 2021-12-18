@@ -18,8 +18,10 @@ export default {
       default: 0
     },
     expand: Boolean,
+    forceExpand: Boolean,
     sort: Boolean,
     previewMode: Boolean,
+    showArrayIndex: Boolean,
   },
   data() {
     return {
@@ -57,6 +59,10 @@ export default {
       this.$emit('update:expand', !this.expand)
       this.dispatchEvent();
     },
+    toggleAll() {
+      this.$emit('update:expandAll', !this.expand)
+      this.dispatchEvent();
+    },
     dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
@@ -77,7 +83,13 @@ export default {
           'jv-toggle': true,
           'open': !!this.expand,
         },
-        onClick: this.toggle
+        onClick: (event) => {
+          if (event.altKey) {
+            this.toggleAll()
+          } else {
+            this.toggle()
+          }
+        }
       }))
     }
 
@@ -99,12 +111,13 @@ export default {
             style: {
               display: !this.expand ? 'none' : undefined
             },
-
             sort: this.sort,
             keyName: key,
             depth: this.depth + 1,
             value,
             previewMode: this.previewMode,
+            forceExpand: this.forceExpand,
+            showArrayIndex: this.showArrayIndex,
           }))
         }
       }
@@ -112,13 +125,16 @@ export default {
 
     if (!this.expand && Object.keys(this.value).length) {
       elements.push(h('span', {
-        style: {
-          display: this.expand ? 'none' : undefined
-        },
         class: {
           'jv-ellipsis': true,
         },
-        onClick: this.toggle,
+        onClick: (event) => {
+          if (event.altKey) {
+            this.toggleAll()
+          } else {
+            this.toggle()
+          }
+        },
         title: `click to reveal object content (keys: ${Object.keys(this.ordered).join(', ')})`,
         innerText: '...'
       }))
