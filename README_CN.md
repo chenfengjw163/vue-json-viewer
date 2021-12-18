@@ -1,24 +1,18 @@
 # vue-json-viewer
 
-[中文版](https://github.com/chenfengjw163/vue-json-viewer/blob/master/README_CN.md)
-
-Simple JSON viewer component, for Vue.js 2 or 3.
-
-Support for incremental update components
+简单易用的json内容展示组件，支持vue@2和3，支持SSR，组件支持增量渲染即使大文件json也可以快速渲染。
 
 [![Travis](https://img.shields.io/travis/chenfengjw163/vue-json-viewer/master.svg?style=flat-square)](https://travis-ci.org/chenfengjw163/vue-json-viewer)
 [![npm](https://img.shields.io/npm/v/vue-json-viewer.svg?style=flat-square)](https://www.npmjs.com/package/vue-json-viewer)
 ![npm](https://img.shields.io/npm/dw/vue-json-viewer.svg?style=flat-square)
 
-- [Installing](#installing)
-- [Example](#example)
-- [Options](#options)
-- [Listeners](#listeners)
-- [Slots](#slots)
-- [Theming](#theming)
+- [安装](#安装)
+- [示例](#示例)
+- [选项](#选项)
+- [主题](#主题)
 
-## Installing
-Using npm:
+## 安装
+使用 npm:
 ```
 $ npm install vue-json-viewer@2 --save
 // Vue2
@@ -26,7 +20,7 @@ $ npm install vue-json-viewer@3 --save
 // Vue3
 ```
 
-Using yarn:
+使用 yarn:
 ```
 $ yarn add vue-json-viewer@2 
 // Vue2
@@ -34,7 +28,7 @@ $ yarn add vue-json-viewer@3
 // Vue3
 ```
 
-## Example
+## 示例
 
 ``` html
 <json-viewer :value="jsonData"></json-viewer>
@@ -127,7 +121,7 @@ new Vue({
   }
 })
 ```
-### SSR
+### 支持SSR
 ``` js
 import JsonViewer from 'vue-json-viewer/ssr'
 
@@ -143,41 +137,29 @@ import 'vue-json-viewer/style.css'
 ```
 
 
-### Preview
+### 图片预览
 ![preview](./example/preview.png)
 
 
-## Options
+## 选项
 
-| Property | Description | Default |
+| 属性 | 描述 | 默认值 |
 | ----------- |:------------- | ----------- |
-| `value` | JSON data (can be used with `v-model`) | **Required** |
-| `expand-depth` | Collapse blocs under this depth | `1`  |
-| `copyable` | Display the copy button, you can customize copy text just set `{copyText: 'copy', copiedText: 'copied', timeout: 2000}` or set `true` use default copytext  | `false`  |
-| `sort` | Sort keys before displaying | `false` |
-| `boxed` | Add a fancy "boxed" style to component | `false` |
-| `theme` | Add a custom CSS class for theming purposes | `jv-light` |
-| `expanded` | Default expand the view | `false` |
-| `timeformat` | custom time format function | time => time.toLocaleString() |
-| `preview-mode` | no expand mode | `false` |
+| `value` | json对象的值，可以使用v-model，支持响应式 | **必填** |
+| `expand-depth` | 默认展开的层级 | `1`  |
+| `copyable` | 展示复制按钮，默认文案为：copy、copied!, 你可以设置一个对象`{copyText: 'copy', copiedText: 'copied'}` 来自定义复制按钮文案 | `false`  |
+| `sort` | 按照key排序展示 | `false` |
+| `boxed` | 为组件添加一个盒样式 | `false` |
+| `theme` | 添加一个自定义的样式class用作主题 | `jv-light` |
+| `expanded` | 默认展开视图 | `false` |
+| `timeformat` | 自定义时间格式函数 | time => time.toLocaleString() |
+| `preview-mode` | 不可折叠模式，默认全部展开 | `false` |
 
-## Listeners
+## 主题
 
-| Listener | Description | Value |
-| ----------- |:------------- | ----------- |
-| `copied` | Emits copyEvent after text copied | Clipboard success event |
-
-## Slots
-
-| Name | Description | Scope |
-| ----------- |:------------- | ----------- |
-| `copy` | Custom content for copy button | `{copied: boolean}` |
-
-## Theming
-
-To create custom theme, (e.g. `my-awesome-json-theme`), in two easy steps:
-1. add `theme="my-awesome-json-theme"` to the JsonViewer component
-2. copy-pasta and customize this SCSS template:
+有两个办法创建自定义主题, (e.g. `my-awesome-json-theme`):
+1. 添加 `theme="my-awesome-json-theme"` JsonViewer的组件属性
+2. 复制粘贴下面的模板并且根据自定义的theme名称做对应调整:
 
 ``` scss
 // values are default one from jv-light template

@@ -17,23 +17,44 @@ export default {
       default: 0
     },
     sort: Boolean,
-    expand: Boolean
+    expand: Boolean,
+    forceExpand: Boolean,
+    previewMode: Boolean,
   },
-  computed: {
-    ordered () {
-      let value = this.jsonValue
-
-      if (!this.sort) {
-        return value
-      }
-
-      return value.sort()
+  data() {
+    return {
+      value: []
     }
   },
+  watch: {
+    jsonValue(newVal) {
+      this.setValue(newVal);
+    }
+  },
+  mounted() {
+    this.setValue(this.jsonValue);
+  },
   methods: {
+    setValue(vals, index = 0) {
+      if (index === 0) {
+        this.value = [];
+      }
+      setTimeout(() => {
+        if (vals.length > index) {
+          this.value.push(vals[index]);
+          this.setValue(vals, index + 1);
+        }
+      }, 0);
+    },
     toggle() {
       this.$emit('update:expand', !this.expand)
-
+      this.dispatchEvent();
+    },
+    toggleAll() {
+      this.$emit('update:expandAll', !this.expand)
+      this.dispatchEvent();
+    },
+    dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
@@ -47,14 +68,20 @@ export default {
   render (h) {
     let elements = []
 
-    if (!this.keyName) {
+    if (!this.previewMode && !this.keyName) {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
-          'open': !!this.expand, 
+          'open': !!this.expand,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         }
       }))
     }
@@ -62,46 +89,47 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-array': true, 
+        'jv-array': true,
       },
       domProps: {
-        innerHTML: '['
+        innerText: '['
       }
     }))
-
-    for (let key in this.ordered) {
-      let value = this.ordered[key]
-
-      elements.push(h(JsonBox, {
-        key,
-        style: {
-          display: !this.expand ? 'none' : undefined
-        },
-        props: {
-          sort: this.sort,
-          // keyName: key,
-          depth: this.depth + 1,
-          value,
-        }
-      }))
+    if (this.expand) {
+      this.value.forEach((value, key) => {
+        elements.push(h(JsonBox, {
+          key,
+          props: {
+            sort: this.sort,
+            keyName: `${key}`,
+            depth: this.depth + 1,
+            value,
+            previewMode: this.previewMode,
+            forceExpand: this.forceExpand,
+          }
+        }))
+      })
     }
 
-    if (!this.expand) {
+    if (!this.expand && this.value.length) {
       elements.push(h('span', {
-        style: {
-          display: this.expand ? 'none' : undefined
-        },
         class: {
-          'jv-ellipsis': true, 
+          'jv-ellipsis': true,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         },
         attrs: {
-          title: `click to reveal ${this.jsonValue.length} hidden items`
+          title: `click to reveal ${this.value.length} hidden items`
         },
         domProps: {
-          innerHTML: '...'
+          innerText: '...'
         }
       }))
     }
@@ -109,10 +137,10 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-array': true, 
+        'jv-array': true,
       },
       domProps: {
-        innerHTML: ']'
+        innerText: ']'
       }
     }))
 

@@ -1,21 +1,57 @@
 import Vue from 'vue'
-import JsonViewer from '../dist/vue-json-viewer'
+import JsonViewer from '../lib'
+import './app.css'
 
 Vue.use(JsonViewer)
 
 new Vue({
   el: '#app',
   render() {
+    const scopedSlots = {
+      copy: ({ copied }) => {
+        if (copied) return <button disabled>Copied!</button>
+        return <button>Copy me!</button>
+      },
+    }
+    const onCopied = (copyEvent) => {
+      alert(`Text successfully copied!\n${copyEvent.text}`);
+    }
     return (
       <div>
+        <json-viewer
+          preview-mode
+          value={{
+            data: {
+              data: {
+                data: {
+                  a: 1
+                }
+              }
+            }
+          }}></json-viewer>
         <json-viewer value={this.jsonData}></json-viewer>
         <hr />
         <json-viewer
           value={this.jsonData}
           expand-depth={5}
-          copyable
+          copyable={{
+            copyText: '复制',
+            copiedText: '复制成功',
+            align: 'left'
+          }}
           boxed
+          timeformat={time => new Date(time)}
           sort></json-viewer>
+        <hr />
+        <json-viewer
+          value={this.jsonData}
+          expand-depth={1}
+          copyable={{
+            timeout: 4000,
+            align: 'left'
+          }}
+          scopedSlots={scopedSlots}
+          onCopied={onCopied}></json-viewer>
       </div>
     )
   },
@@ -25,6 +61,7 @@ new Vue({
         total: 25,
         limit: 10,
         skip: 0,
+        numbers: 10.11,
         success: true,
         links: {
           previous: undefined,
@@ -34,6 +71,7 @@ new Vue({
           {
             id: '5968fcad629fa84ab65a5247',
             firstname: 'Ada',
+            link: 'http://google.com',
             lastname: 'Lovelace',
             awards: null,
             known: [
@@ -49,8 +87,8 @@ new Vue({
             the Analytical Engine. She was the first to recognise that the machine had applications beyond pure calculation,
             and published the first algorithm intended to be carried out by such a machine.
             As a result, she is sometimes regarded as the first to recognise the full potential of a "computing machine" and the first computer programmer.`,
-            bornAt: '1815-12-10T00:00:00.000Z',
-            diedAt: '1852-11-27T00:00:00.000Z'
+            bornAt: new Date('1815-12-10T00:00:00.000Z'),
+            diedAt: new Date('1852-11-27T00:00:00.000Z')
           }, {
             id: '5968fcad629fa84ab65a5246',
             firstname: 'Grace',
@@ -77,8 +115,8 @@ new Vue({
             she was a pioneer of computer programming who invented one of the first compiler related tools.
             She popularized the idea of machine-independent programming languages, which led to the development of COBOL,
             an early high-level programming language still in use today.`,
-            bornAt: '1815-12-10T00:00:00.000Z',
-            diedAt: '1852-11-27T00:00:00.000Z'
+            bornAt: new Date('1815-12-10T00:00:00.000Z'),
+            diedAt: new Date('1852-11-27T00:00:00.000Z')
           }
         ]
       }

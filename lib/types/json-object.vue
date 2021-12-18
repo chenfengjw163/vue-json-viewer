@@ -17,25 +17,51 @@ export default {
       default: 0
     },
     expand: Boolean,
-    sort: Boolean
+    forceExpand: Boolean,
+    sort: Boolean,
+    previewMode: Boolean,
+  },
+  data() {
+    return {
+      value: {}
+    }
   },
   computed: {
     ordered () {
       if (!this.sort) {
-        return this.jsonValue
+        return this.value
       }
 
       const ordered = {}
-      Object.keys(this.jsonValue).sort().forEach(key => {
-        ordered[key] = this.jsonValue[key]
+      Object.keys(this.value).sort().forEach(key => {
+        ordered[key] = this.value[key]
       })
       return ordered
     }
   },
+  watch: {
+    jsonValue(newVal) {
+      this.setValue(newVal);
+    }
+  },
+  mounted() {
+    this.setValue(this.jsonValue);
+  },
   methods: {
+    setValue(val) {
+      setTimeout(() => {
+        this.value = val;
+      }, 0);
+    },
     toggle() {
       this.$emit('update:expand', !this.expand)
-
+      this.dispatchEvent();
+    },
+    toggleAll() {
+      this.$emit('update:expandAll', !this.expand)
+      this.dispatchEvent();
+    },
+    dispatchEvent() {
       try {
         this.$el.dispatchEvent(new Event('resized'))
       } catch (e) {
@@ -49,14 +75,20 @@ export default {
   render (h) {
     let elements = []
 
-    if (!this.keyName) {
+    if (!this.previewMode && !this.keyName) {
       elements.push(h('span', {
         class: {
           'jv-toggle': true,
-          'open': !!this.expand, 
+          'open': !!this.expand,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         }
       }))
     }
@@ -64,48 +96,52 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-object': true, 
+        'jv-object': true,
       },
       domProps: {
-        innerHTML: '{'
+        innerText: '{'
       }
     }))
 
-    for (let key in this.ordered) {
-      if (this.ordered.hasOwnProperty(key)) {
-        let value = this.ordered[key]
+    if (this.expand) {
+      for (let key in this.ordered) {
+        if (this.ordered.hasOwnProperty(key)) {
+          let value = this.ordered[key]
 
-        elements.push(h(JsonBox, {
-          key,
-          style: {
-            display: !this.expand ? 'none' : undefined
-          },
-          props: {
-            sort: this.sort,
-            keyName: key,
-            depth: this.depth + 1,
-            value,
-          }
-        }))
+          elements.push(h(JsonBox, {
+            key,
+            props: {
+              sort: this.sort,
+              keyName: key,
+              depth: this.depth + 1,
+              value,
+              previewMode: this.previewMode,
+              forceExpand: this.forceExpand,
+            }
+          }))
+        }
       }
     }
 
-    if (!this.expand) {
+    if (!this.expand && Object.keys(this.value).length) {
       elements.push(h('span', {
-        style: {
-          display: this.expand ? 'none' : undefined
-        },
         class: {
-          'jv-ellipsis': true, 
+          'jv-ellipsis': true,
         },
         on: {
-          click: this.toggle
+          click: (event) => {
+            if (event.altKey) {
+              this.toggleAll()
+            } else {
+              this.toggle()
+            }
+          }
         },
         attrs: {
           title: `click to reveal object content (keys: ${Object.keys(this.ordered).join(', ')})`
         },
         domProps: {
-          innerHTML: '...'
+          innerText: '...'
         }
       }))
     }
@@ -113,10 +149,10 @@ export default {
     elements.push(h('span', {
       class: {
         'jv-item': true,
-        'jv-object': true, 
+        'jv-object': true,
       },
       domProps: {
-        innerHTML: '}'
+        innerText: '}'
       }
     }))
 

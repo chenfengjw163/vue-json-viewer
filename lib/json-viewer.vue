@@ -1,28 +1,38 @@
 <template>
-  <div :class="jvClass">
+  <div
+    ref="viewer"
+    :class="jvClass"
+  >
     <div 
       v-if="copyable"
-      class="jv-tooltip"
+      :class="`jv-tooltip ${copyText.align || 'right'}`"
     >
       <span  
         ref="clip" 
         class="jv-button"
         :class="{copied}"
-        @click="clip" 
-      >{{ copied ? 'copied!' : 'copy' }}</span>
+      >
+        <slot
+          name="copy"
+          :copied="copied"
+        >
+          {{ copied ? copyText.copiedText : copyText.copyText }}
+        </slot>
+      </span>
     </div>
     <div 
       class="jv-code" 
-      :class="{'open': expandCode}"
+      :class="{'open': expandCode, boxed}"
     >
       <json-box
         ref="jsonBox"
         :value="value"
         :sort="sort"
+        :preview-mode="previewMode"
       />
     </div>
     <div 
-      v-if="expandableCode" 
+      v-if="expandableCode && boxed" 
       class="jv-more" 
       @click="toggleExpandCode"
     >
@@ -38,6 +48,7 @@
 import Vue from 'vue'
 import JsonBox from './json-box'
 import Clipboard from 'clipboard'
+import {debounce} from './utils';
 
 export default {
   name: 'JsonViewer',
@@ -49,12 +60,16 @@ export default {
       type: [Object, Array, String, Number, Boolean, Function],
       required: true
     },
+    expanded: {
+      type: Boolean,
+      default: false
+    },
     expandDepth: {
       type: Number,
       default: 1
     },
     copyable: {
-      type: Boolean,
+      type: [Boolean, Object],
       default: false
     },
     sort: {
@@ -69,31 +84,73 @@ export default {
       type: String,
       default: 'jv-light'
     },
+    timeformat: {
+      type: Function,
+      default: value => value.toLocaleString(),
+    },
+    previewMode: {
+      type: Boolean,
+      default: false,
+    }
   },
   provide () {
     return {
       expandDepth: this.expandDepth,
+      timeformat: this.timeformat,
     }
   },
   data () {
     return {
       copied: false,
       expandableCode: false,
-      expandCode: false
+      expandCode: this.expanded
     }
   },
   computed: {
-    jvClass () {
+    jvClass() {
       return 'jv-container ' + this.theme + (this.boxed ? ' boxed' : '')
+    },
+    copyText() {
+      const { copyText, copiedText, timeout, align } = this.copyable
+
+      return {
+        copyText: copyText || 'copy',
+        copiedText: copiedText || 'copied!',
+        timeout: timeout || 2000,
+        align,
+      }
+    }
+  },
+  watch: {
+    value() {
+      this.onResized()
     }
   },
   mounted: function () {
-    this.onResized()
-    this.$el.addEventListener("resized", this.onResized, true)
+    this.debounceResized = debounce(this.debResized.bind(this), 200);
+    if (this.boxed && this.$refs.jsonBox) {
+      this.onResized()
+      this.$refs.jsonBox.$el.addEventListener("resized", this.onResized, true)
+    }
+    if (this.copyable) {
+      const clipBoard = new Clipboard(this.$refs.clip, {
+        container: this.$refs.viewer,
+        text: () => {
+          return JSON.stringify(this.value, null, 2)
+        }
+      });
+      clipBoard.on('success', (e) => {
+        this.onCopied(e)
+      })
+    }
   },
   methods: {
     onResized () {
+      this.debounceResized();
+    },
+    debResized() {
       this.$nextTick(() => {
+        if (!this.$refs.jsonBox) return;
         if (this.$refs.jsonBox.$el.clientHeight >= 250) {
           this.expandableCode = true
         } else {
@@ -101,25 +158,15 @@ export default {
         }
       })
     },
-    clip () {
+    onCopied(copyEvent) {
       if (this.copied) {
-        return
+        return;
       }
-
-      const clipBoard = new Clipboard(this.$refs.clip, {
-        text: () => {
-          return JSON.stringify(this.value, null, 2)
-        }
-      })
-
-      clipBoard.on('success', () => {
-        this.copied = true
-        setTimeout(() => {
-          this.copied = false
-        }, 2000)
-        this.$emit('copied')
-        clipBoard.destroy()
-      })
+      this.copied = true
+      setTimeout(() => {
+        this.copied = false
+      }, this.copyText.timeout)
+      this.$emit('copied', copyEvent)
     },
     toggleExpandCode () {
       this.expandCode = !this.expandCode
@@ -194,6 +241,10 @@ export default {
         color: #42b983;
         word-break: break-word;
         white-space: normal;
+
+        .jv-link {
+          color: #0366d6;
+        }
       }
     }
     .jv-code {
@@ -212,12 +263,15 @@ export default {
   }
 
   .jv-code {
-    max-height: 300px;
     overflow: hidden;
-    padding: 20px;
+    padding: 30px 20px;
+
+    &.boxed {
+      max-height: 300px;
+    }
 
     &.open {
-      max-height: initial;
+      max-height: initial !important;
       overflow: visible;
       overflow-x: auto;
       padding-bottom: 45px;
@@ -225,25 +279,19 @@ export default {
   }
 
   .jv-toggle {
+    background-image: url(./icon.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
     cursor: pointer;
-
-    &:before {
-      content: "⏷";
-      padding: 0px 2px;
-      border-radius: 2px;
-      position: absolute;
-    }
-    &:after {
-      content: " ";
-      position: relative;
-      display: inline-block;
-      width: 16px;
-    }
+    width: 10px;
+    height: 10px;
+    margin-right: 2px;
+    display: inline-block;
+    transition: transform 0.1s;
 
     &.open {
-      &:before {
-        content: "⏶";
-      }
+      transform: rotate(90deg)
     }
   }
 
@@ -264,7 +312,11 @@ export default {
       z-index: 2;
       color: #888;
       transition: all 0.1s;
-      // background: red;
+      transform: rotate(90deg);
+
+      &.open {
+        transform: rotate(-90deg)
+      }
     }
 
     &:after {
@@ -278,14 +330,14 @@ export default {
       background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0) 20%,
-        rgba(230, 230, 230, 1) 100%
+        rgba(230, 230, 230, 0.3) 100%
       );
       transition: all 0.1s;
     }
 
     &:hover {
       .jv-toggle {
-        top: 50%;
+        top: 50%; 
         color: #111;
       }
 
@@ -314,8 +366,13 @@ export default {
 
   .jv-tooltip {
     position: absolute;
-    right: 15px;
-    top: 10px;
+
+    &.right {
+      right: 15px;
+    }
+    &.left {
+      left: 15px;
+    }
   }
 
   .j-icon {
