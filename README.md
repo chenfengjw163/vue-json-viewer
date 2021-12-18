@@ -160,6 +160,8 @@ import 'vue-json-viewer/style.css'
 | `expanded` | Default expand the view | `false` |
 | `timeformat` | custom time format function | time => time.toLocaleString() |
 | `preview-mode` | no expand mode | `false` |
+| `show-array-index` | array show index | `true` |
+
 
 ## Listeners
 
@@ -172,6 +174,11 @@ import 'vue-json-viewer/style.css'
 | Name | Description | Scope |
 | ----------- |:------------- | ----------- |
 | `copy` | Custom content for copy button | `{copied: boolean}` |
+
+## shortcut keys
+| Name | Description | Scope |
+| ----------- |:------------- | ----------- |
+| `alt` + click | expand all node |  |
 
 ## Theming
 
