@@ -120,7 +120,7 @@ export default {
           'jv-key': true
         },
         domProps: {
-          innerText: this.showDoubleQuotes ? `"${this.keyName}":` :  `${this.keyName}:`
+          innerText: this.showDoubleQuotes ? `"${this.keyName}":` : `${this.keyName}:`
         }
       }))
     }
