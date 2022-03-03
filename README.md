@@ -161,6 +161,7 @@ import 'vue-json-viewer/style.css'
 | `timeformat` | custom time format function | time => time.toLocaleString() |
 | `preview-mode` | no expand mode | `false` |
 | `show-array-index` | array show index | `true` |
+| `show-double-quotes` | show double quotes | `true` |
 
 
 ## Listeners

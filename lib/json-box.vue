@@ -28,6 +28,7 @@ export default {
     previewMode: Boolean,
     forceExpand: Boolean,
     showArrayIndex: Boolean,
+    showDoubleQuotes: Boolean,
   },
   data() {
     return {
@@ -119,7 +120,7 @@ export default {
           'jv-key': true
         },
         domProps: {
-          innerText: `${this.keyName}:`
+          innerText: this.showDoubleQuotes ? `"${this.keyName}":` : `${this.keyName}:`
         }
       }))
     }
@@ -137,6 +138,7 @@ export default {
         previewMode: this.previewMode,
         forceExpand: this.forceExpandMe,
         showArrayIndex: this.showArrayIndex,
+        showDoubleQuotes: this.showDoubleQuotes,
       },
       on: {
         'update:expand': value => {

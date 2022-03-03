@@ -30,6 +30,7 @@
         :sort="sort"
         :preview-mode="previewMode"
         :show-array-index="showArrayIndex"
+        :show-double-quotes="showDoubleQuotes"
       />
     </div>
     <div 
@@ -94,6 +95,10 @@ export default {
       default: false,
     },
     showArrayIndex: {
+      type: Boolean,
+      default: true,
+    },
+    showDoubleQuotes: {
       type: Boolean,
       default: true,
     }
