@@ -11,7 +11,7 @@ import JsonDate from './types/json-date'
 
 export default {
   name: 'JsonBox',
-  inject: ['expandDepth'],
+  inject: ['expandDepth', 'onKeyclick'],
   props: {
     value: {
       type: [Object, Array, String, Number, Boolean, Function, Date],
@@ -29,6 +29,11 @@ export default {
     previewMode: Boolean,
     forceExpand: Boolean,
     showArrayIndex: Boolean,
+    showDoubleQuotes: Boolean,
+    path: {
+      type: String,
+      default: '$',
+    },
   },
   data() {
     return {
@@ -117,7 +122,10 @@ export default {
         class: {
           'jv-key': true
         },
-        innerText: `${this.keyName}:`
+        innerText: this.showDoubleQuotes ? `"${this.keyName}":` : `${this.keyName}:`,
+        onClick: () => {
+          this.onKeyclick(this.path);
+        }
       }))
     }
 
@@ -133,6 +141,8 @@ export default {
       previewMode: this.previewMode,
       forceExpand: this.forceExpandMe,
       showArrayIndex: this.showArrayIndex,
+      showDoubleQuotes: this.showDoubleQuotes,
+      path: this.path,
       'onUpdate:expand': value => {
         this.expand = value
       },

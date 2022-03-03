@@ -154,6 +154,27 @@ import 'vue-json-viewer/style.css'
 | `expanded` | 默认展开视图 | `false` |
 | `timeformat` | 自定义时间格式函数 | time => time.toLocaleString() |
 | `preview-mode` | 不可折叠模式，默认全部展开 | `false` |
+| `show-array-index` | 是否显示数组索引 | `true` |
+| `show-double-quotes` | 展示key双引号 | `false` |
+
+
+## 事件
+
+| 事件 | 描述 | 值 |
+| ----------- |:------------- | ----------- |
+| `copied` | 复制文本后的事件 |  |
+| `keyclick` | 点击key的事件 |  |
+
+## Slots
+
+| 名称 | 描述 | Scope |
+| ----------- |:------------- | ----------- |
+| `copy` | 自定义拷贝按钮 | `{copied: boolean}` |
+
+## 快捷键
+| 名称 | 描述 | 
+| ----------- |:------------- | 
+| `alt` + click | 展开当前节点下的所有节点 | 
 
 ## 主题
 

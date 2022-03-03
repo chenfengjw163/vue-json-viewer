@@ -13,6 +13,9 @@
       boxed
       :timeformat="(time) => new Date(time)"
       sort
+      show-double-quotes
+      :show-array-index="false"
+      :onKeyclick="onKeyclick"
       ></json-viewer>
     <hr />
     <json-viewer
@@ -101,6 +104,9 @@ export default {
   methods: {
     onCopied(copyEvent) {
       alert(`Text successfully copied!\n${copyEvent.text}`);
+    },
+    onKeyclick(path) {
+      alert(`Key Click!\n${path}`);
     }
   }
 };
