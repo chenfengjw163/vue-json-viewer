@@ -16,6 +16,9 @@ new Vue({
     const onCopied = (copyEvent) => {
       alert(`Text successfully copied!\n${copyEvent.text}`);
     }
+    const onKeyclick = (path) => {
+      alert(`Key Click!\n${path}`);
+    }
     return (
       <div>
         <json-viewer
@@ -40,9 +43,12 @@ new Vue({
             align: 'left'
           }}
           boxed
+          show-double-quotes
           show-array-index={false}
           timeformat={time => new Date(time)}
-          sort></json-viewer>
+          sort
+          onKeyclick={onKeyclick}
+          ></json-viewer>
         <hr />
         <json-viewer
           value={this.jsonData}

@@ -1,9 +1,13 @@
 {
   "name": "vue-json-viewer",
-  "version": "2.2.21",
+  "version": "2.2.22",
   "description": "vuejs展示json的组件",
   "main": "vue-json-viewer.js",
-  "files": ["vue-json-viewer.js", "ssr.js", "style.css"],
+  "files": [
+    "vue-json-viewer.js",
+    "ssr.js",
+    "style.css"
+  ],
   "directories": {
     "lib": "./lib",
     "example": "./example"
@@ -18,7 +22,10 @@
     "type": "git",
     "url": "git+https://github.com/chenfengjw163/vue-json-viewer.git"
   },
-  "keywords": ["vue", "json"],
+  "keywords": [
+    "vue",
+    "json"
+  ],
   "homepage": "https://github.com/chenfengjw163/vue-json-viewer#readme",
   "author": {
     "name": "陈峰",
@@ -77,5 +84,8 @@
   },
   "peerDependencies": {
     "vue": "^2.6.9"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

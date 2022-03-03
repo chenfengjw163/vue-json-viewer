@@ -22,6 +22,7 @@ export default {
     previewMode: Boolean,
     showArrayIndex: Boolean,
     showDoubleQuotes: Boolean,
+    path: String,
   },
   data() {
     return {
@@ -121,6 +122,7 @@ export default {
               forceExpand: this.forceExpand,
               showArrayIndex: this.showArrayIndex,
               showDoubleQuotes: this.showDoubleQuotes,
+              path: `${this.path}.${key}`
             }
           }))
         }

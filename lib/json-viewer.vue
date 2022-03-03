@@ -31,6 +31,7 @@
         :preview-mode="previewMode"
         :show-array-index="showArrayIndex"
         :show-double-quotes="showDoubleQuotes"
+        @keyclick="onKeyclick"
       />
     </div>
     <div 
@@ -100,13 +101,14 @@ export default {
     },
     showDoubleQuotes: {
       type: Boolean,
-      default: true,
+      default: false,
     }
   },
   provide () {
     return {
       expandDepth: this.expandDepth,
       timeformat: this.timeformat,
+      onKeyclick: this.onKeyclick,
     }
   },
   data () {
@@ -180,6 +182,9 @@ export default {
     },
     toggleExpandCode () {
       this.expandCode = !this.expandCode
+    },
+    onKeyclick(path) {
+      this.$emit('keyclick', path)
     }
   }
 }
