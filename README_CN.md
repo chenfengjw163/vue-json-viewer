@@ -155,6 +155,7 @@ import 'vue-json-viewer/style.css'
 | `timeformat` | 自定义时间格式函数 | time => time.toLocaleString() |
 | `preview-mode` | 不可折叠模式，默认全部展开 | `false` |
 | `show-array-index` | 是否显示数组索引 | `true` |
+| `show-double-quotes` | 展示key双引号 | `false` |
 
 
 ## 事件
@@ -162,6 +163,7 @@ import 'vue-json-viewer/style.css'
 | 事件 | 描述 | 值 |
 | ----------- |:------------- | ----------- |
 | `copied` | 复制文本后的事件 |  |
+| `keyclick` | 点击key的事件 |  |
 
 ## Slots
 

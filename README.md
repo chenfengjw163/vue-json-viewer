@@ -161,6 +161,7 @@ import 'vue-json-viewer/style.css'
 | `timeformat` | custom time format function | time => time.toLocaleString() |
 | `preview-mode` | no expand mode | `false` |
 | `show-array-index` | array show index | `true` |
+| `show-double-quotes` | show double quotes | `false` |
 
 
 ## Listeners
@@ -168,6 +169,7 @@ import 'vue-json-viewer/style.css'
 | Listener | Description | Value |
 | ----------- |:------------- | ----------- |
 | `copied` | Emits copyEvent after text copied | Clipboard success event |
+| `keyclick` | click key event |  |
 
 ## Slots
 
