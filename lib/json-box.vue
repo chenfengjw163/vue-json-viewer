@@ -10,7 +10,7 @@ import JsonDate from './types/json-date'
 
 export default {
   name: 'JsonBox',
-  inject: ['expandDepth', 'onKeyclick'],
+  inject: ['expandDepth', 'onKeyclick', 'needCollapseKeys', 'needCollapsePaths'],
   props: {
     value: {
       type: [Object, Array, String, Number, Boolean, Function, Date],
@@ -40,10 +40,35 @@ export default {
       forceExpandMe: this.forceExpand,
     }
   },
+    watch: {
+    'needCollapsePaths': function(newVal) {
+      this.changeNeedCollapsePaths(newVal)
+    },
+    'needCollapseKeys': function(newVal) {
+      this.changeNeedCollapseKeys(newVal)
+    }
+  },
   mounted() {
     this.expand = this.previewMode || (this.depth >= this.expandDepth ? false : true) || this.forceExpandMe
+    this.changeNeedCollapseKeys(this.needCollapseKeys)
+    this.changeNeedCollapsePaths(this.needCollapsePaths)
   },
   methods: {
+    changeNeedCollapsePaths(needCollapasePaths) {
+      const fullpath = this.getPath().join('.')
+      if (Array.isArray(needCollapasePaths) && fullpath) {
+        if (needCollapasePaths.includes(fullpath)) {
+          this.expand = false
+        }
+      }
+    },
+     changeNeedCollapseKeys(needCollapseKeys) {
+      if (Array.isArray(needCollapseKeys)) {
+        if (needCollapseKeys.includes(this.keyName)) {
+          this.expand = false
+        }
+      }
+    },
     toggle() {
       this.expand = !this.expand
 

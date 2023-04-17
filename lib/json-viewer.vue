@@ -102,13 +102,23 @@ export default {
     showDoubleQuotes: {
       type: Boolean,
       default: false,
-    }
+    },
+    needCollapsePaths: {
+      type: Array,
+      default: () => []
+    },
+    needCollapseKeys: {
+      type: Array,
+      default: () => []
+    },
   },
   provide () {
     return {
       expandDepth: this.expandDepth,
       timeformat: this.timeformat,
       onKeyclick: this.onKeyclick,
+      needCollapseKeys: this.needCollapseKeys,
+      needCollapsePaths: this.needCollapsePaths
     }
   },
   data () {
